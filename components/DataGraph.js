@@ -35,14 +35,7 @@ const DataGraph = ({ selectedValues }) => {
 					<div className='col-span-3'>
 						<LineAreaChart />
 					</div>
-					<div className='col-span-3'>
-						<BarChart
-							title='Largest U.S Cities By Population'
-							subtitle='Statistics'
-							series={userSeriesData}
-							zoom={selectedValues}
-						/>
-					</div>
+
 					<div className='col-span-3'>
 						<HeatMapChart />
 					</div>

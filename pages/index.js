@@ -58,12 +58,16 @@ export default function Home({
 				DASHBOARD
 			</h1>
 
-			<p className='font-semibold p-0 mg-0'>Select data-range:</p>
-			<RangePicker
-				selectedValues={rangePickerSelectedValues}
-				enabledValues={rangePickerEnabledValues}
-				onChange={onRangePickerValuesChanged}
-			/>
+			<p className='text-white font-semibold p-0 mg-0 px-20'>
+				Select data-range:
+			</p>
+			<div className='px-20'>
+				<RangePicker
+					selectedValues={rangePickerSelectedValues}
+					enabledValues={rangePickerEnabledValues}
+					onChange={onRangePickerValuesChanged}
+				/>
+			</div>
 			<DataGraph selectedValues={rangePickerSelectedValues} />
 		</div>
 	)
