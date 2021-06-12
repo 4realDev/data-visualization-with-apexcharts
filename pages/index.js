@@ -5,9 +5,6 @@ import styles from '../styles/Home.module.css'
 import React, { useState, useEffect } from 'react'
 
 import DataGraph from '../components/DataGraph'
-import LineChart from '../components/charts/LineChart'
-import LineAreaChart from '../components/charts/LineAreaChart'
-import HeatMapChart from '../components/charts/HeatMapChart'
 import { initDefaultCharLayout } from '../components/charts/DefaultLayout'
 
 import Select from '../components/ant-design/AntSelect'
@@ -56,50 +53,18 @@ export default function Home({
 	}
 
 	return (
-		<div className='min-h-screen flex items-center bg-gray-800'>
-			<div className='flex-1 mx-auto text-gray-300 p-20'>
-				<h1 className='text-white text-center text-4xl font-semibold pb-5'>
-					DASHBOARD
-				</h1>
-				<div className='flex-1 mb-3.5'>
-					<p className='font-semibold p-0 mg-0'>Select data-range:</p>
-					<RangePicker
-						selectedValues={rangePickerSelectedValues}
-						enabledValues={rangePickerEnabledValues}
-						onChange={onRangePickerValuesChanged}
-					/>
-				</div>
-				<div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-y-0 gap-x-4 grid-flow-row'>
-					<div className='col-span-3'>
-						<LineChart
-							title='Largest U.S Cities By Population'
-							subtitle='Statistics'
-							labels={lineChartDataLabels}
-							series={lineChartDataSeries}
-						/>
-					</div>
-					<div className='col-span-3'>
-						<LineAreaChart />
-					</div>
-					<div className='col-span-3'>
-						{/* <div className='flex absolute top-0 right-0 z-10 mx-1.5 my-3.5'>
-							<Select />
-						</div>
+		<div className='min-h-screen bg-gray-800'>
+			<h1 className='text-white text-center text-4xl font-semibold pb-5'>
+				DASHBOARD
+			</h1>
 
-						<button
-							onClick={() =>
-								dispatch(setInitialBarChartData(barChartData))
-							}
-						>
-							Add all Months
-						</button> */}
-						<DataGraph selectedValues={rangePickerSelectedValues} />
-					</div>
-					<div className='col-span-3'>
-						<HeatMapChart />
-					</div>
-				</div>
-			</div>
+			<p className='font-semibold p-0 mg-0'>Select data-range:</p>
+			<RangePicker
+				selectedValues={rangePickerSelectedValues}
+				enabledValues={rangePickerEnabledValues}
+				onChange={onRangePickerValuesChanged}
+			/>
+			<DataGraph selectedValues={rangePickerSelectedValues} />
 		</div>
 	)
 }

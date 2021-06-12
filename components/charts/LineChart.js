@@ -1,13 +1,22 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
-import { useState } from 'react'
+import { useEffect } from 'react'
 
-const LineChart = ({ title, subtitle, labels, series }) => {
-	const [options, setOptions] = useState({
+const LineChart = ({ title, subtitle, series, zoom }) => {
+	useEffect(
+		function () {
+			onZoomX(
+				parseInt(zoom[0].format('MM')),
+				parseInt(zoom[1].format('MM'))
+			)
+		},
+		[zoom]
+	) // empty dependencies array means "run this once on first mount"
+
+	const options = {
 		title: { text: title },
 		subtitle: { text: subtitle },
-		labels: labels,
 		chart: {
 			dropShadow: {
 				enabled: true,
@@ -30,7 +39,26 @@ const LineChart = ({ title, subtitle, labels, series }) => {
 				size: 9,
 			},
 		},
-	})
+		xaxis: {
+			min: parseInt(zoom[0].format('MM')),
+			max: parseInt(zoom[1].format('MM')),
+			hideOverlappingLabels: true, // needed for zooming
+			tickPlacement: 'on', // needed for zooming
+		},
+	}
+
+	const onZoomX = (start, end) => {
+		if (window.ApexCharts) {
+			ApexCharts.exec('zoomChart', 'updateOptions', {
+				xaxis: {
+					min: start,
+					max: end,
+					hideOverlappingLabels: true,
+					tickPlacement: 'on',
+				},
+			})
+		}
+	}
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
