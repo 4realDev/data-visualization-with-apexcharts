@@ -12,19 +12,15 @@ import RangePicker from '../components/ant-design/AntRangePicker'
 import moment from 'moment'
 
 import { useDispatch } from 'react-redux'
-import barChartSlice, {
-	setInitialBarChartData,
-} from '../redux/features/barChart/barChartSlice'
+import chartSlice, {
+	setInitialChartData,
+} from '../redux/features/chartData/chartSlice'
 
-export default function Home({
-	lineChartDataSeries,
-	lineChartDataLabels,
-	barChartData,
-}) {
+export default function Home({ chartData }) {
 	const dispatch = useDispatch()
 	useEffect(function onFirstMount() {
 		initDefaultCharLayout()
-		dispatch(setInitialBarChartData(barChartData))
+		dispatch(setInitialChartData(chartData))
 		// call store - mutate data
 	}, []) // empty dependencies array means "run this once on first mount"
 
@@ -54,7 +50,7 @@ export default function Home({
 
 	return (
 		<div className='min-h-screen bg-gray-800'>
-			<h1 className='text-white text-center text-4xl font-semibold pb-5'>
+			<h1 className='text-white text-center text-4xl font-semibold py-5'>
 				DASHBOARD
 			</h1>
 
@@ -74,20 +70,12 @@ export default function Home({
 }
 
 export const getStaticProps = async () => {
-	const resLineChartSeries = await fetch(`${server}/api/lineChartDataSeries`)
-	const lineChartDataSeries = await resLineChartSeries.json()
-
-	const resLineChartLabels = await fetch(`${server}/api/lineChartDataLabels`)
-	const lineChartDataLabels = await resLineChartLabels.json()
-
-	const resBarChartData = await fetch(`${server}/api/barChartData`)
-	const barChartData = await resBarChartData.json()
+	const resChartData = await fetch(`${server}/api/chartData`)
+	const chartData = await resChartData.json()
 
 	return {
 		props: {
-			lineChartDataSeries,
-			lineChartDataLabels,
-			barChartData,
+			chartData,
 		},
 	}
 }

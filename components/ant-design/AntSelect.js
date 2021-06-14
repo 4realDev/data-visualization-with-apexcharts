@@ -1,32 +1,22 @@
 import { Select } from 'antd'
 const { Option } = Select
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-	removeBySelection,
-	addBySelection,
-	clearBySelection,
-} from '../../redux/features/barChart/barChartSlice'
 
 export default function AntSelect() {
-	const barChartSeries = useSelector((state) => state.barChart.series)
-	const selectedCategories = barChartSeries[0].data.map((serie) => serie.x)
-	const dispatch = useDispatch()
+	// const handleOnSelect = (value, event) => {
+	// 	let index = selectedCategories.indexOf(value)
+	// 	console.log('Select: ' + value + 'on Index Position: ' + index)
+	// 	dispatch(addBySelection(index))
+	// }
+	// const handleOnDeselect = (value, event) => {
+	// 	let index = selectedCategories.indexOf(value)
+	// 	console.log('Deselect: ' + value + 'on Index Position: ' + index)
+	// 	dispatch(removeBySelection(value))
+	// }
 
-	const handleOnSelect = (value, event) => {
-		let index = selectedCategories.indexOf(value)
-		console.log('Select: ' + value + 'on Index Position: ' + index)
-		dispatch(addBySelection(index))
-	}
-	const handleOnDeselect = (value, event) => {
-		let index = selectedCategories.indexOf(value)
-		console.log('Deselect: ' + value + 'on Index Position: ' + index)
-		dispatch(removeBySelection(value))
-	}
-
-	const handleOnClear = (value, event) => {
-		dispatch(clearBySelection())
-	}
+	// const handleOnClear = (value, event) => {
+	// 	dispatch(clearBySelection())
+	// }
 
 	return (
 		<>
