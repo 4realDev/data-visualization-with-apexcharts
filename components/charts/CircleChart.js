@@ -2,7 +2,9 @@ import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { useEffect } from 'react'
 
-const CircleChart = ({ label, series }) => {
+// CircleChart currently only supports no range settings (values will be always related to 100% range)
+
+const CircleChart = ({ label, serieValue, maxValue, color }) => {
 	const options = {
 		chart: {
 			type: 'radialBar',
@@ -10,8 +12,8 @@ const CircleChart = ({ label, series }) => {
 		},
 		plotOptions: {
 			radialBar: {
-				startAngle: -135,
-				endAngle: 225,
+				startAngle: 0,
+				endAngle: 360,
 				hollow: {
 					margin: 0,
 					size: '70%',
@@ -66,7 +68,7 @@ const CircleChart = ({ label, series }) => {
 				shade: 'dark',
 				type: 'horizontal',
 				shadeIntensity: 0.5,
-				gradientToColors: ['#ABE5A1'],
+				//gradientToColors: ['#fff'],
 				inverseColors: true,
 				opacityFrom: 1,
 				opacityTo: 1,
@@ -77,15 +79,45 @@ const CircleChart = ({ label, series }) => {
 			lineCap: 'round',
 		},
 		labels: [label],
+		colors: [color],
+		responsive: [
+			{
+				breakpoint: 600,
+				options: {
+					chart: {
+						height: 160,
+					},
+					plotOptions: {
+						radialBar: {
+							dataLabels: {
+								name: {
+									offsetY: -5,
+									fontSize: '14px',
+								},
+								value: {
+									offsetY: 5,
+									fontSize: '18px',
+								},
+							},
+						},
+					},
+				},
+			},
+		],
+	}
+
+	const max = maxValue
+	const valueToPercent = (value) => {
+		return (value * 100) / max
 	}
 
 	return (
 		<div>
 			<Chart
 				options={options}
-				series={series}
+				series={[serieValue]}
 				type='radialBar'
-				height='280'
+				height='250'
 				width='100%'
 			/>
 		</div>

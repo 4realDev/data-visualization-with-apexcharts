@@ -97,27 +97,33 @@ const DataGraph = ({ selectedValues }) => {
 
 	return (
 		<div className='min-h-screen flex items-center bg-gray-800'>
-			<div className='flex-1 mx-auto text-gray-300 p-20'>
+			<div className='flex-1 mx-auto text-gray-300 p-10 sm:p-10 md:p-15'>
 				<div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 gap-y-0 gap-x-4 grid-flow-row'>
-					<div className='col-span-2'>
+					<div className='col-span-1 sm:col-span-1 md:col-span-2'>
 						<CircleChart
 							label='Music'
 							//labels={lineChartDataLabels}
-							series={[userSeriesDataSum[0]]}
+							serieValue={userSeriesDataSum[0]}
+							maxValue={200}
+							color='#008ffb'
 						/>
 					</div>
-					<div className='col-span-2'>
+					<div className='col-span-1 sm:col-span-1 md:col-span-2'>
 						<CircleChart
 							label='Photos'
 							//labels={lineChartDataLabels}
-							series={[userSeriesDataSum[1]]}
+							serieValue={userSeriesDataSum[1]}
+							maxValue={200}
+							color='#00e396'
 						/>
 					</div>
-					<div className='col-span-2'>
+					<div className='col-span-1 sm:col-span-1 md:col-span-2'>
 						<CircleChart
 							label='Files'
 							//labels={lineChartDataLabels}
-							series={[userSeriesDataSum[2]]}
+							serieValue={userSeriesDataSum[2]}
+							maxValue={200}
+							color='#feb019'
 						/>
 					</div>
 					<div className='col-span-3'>
