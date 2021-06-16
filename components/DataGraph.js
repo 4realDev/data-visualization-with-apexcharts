@@ -7,18 +7,14 @@ import HeatMapChart from '../components/charts/HeatMapChart'
 import { useSelector } from 'react-redux'
 
 const DataGraph = ({ selectedValues }) => {
+
 	const userSeriesData = useSelector((state) => state.chartData.series)
+
 	const selectedMonths = selectedValues.map((selectedValue) =>
 		parseInt(selectedValue.month())
 	)
-	// const userSeriesDataFilteredBySelection = userSeriesData.map((serie) =>
-	// 	serie.data.filter((dataTuple) => selectedValues.include(dataTuple.x))
-	// )
 
-	const filter = (value) => {
-		return value <= selectedMonths[1] && value >= selectedMonths[0]
-	}
-
+	console.log('data-1', userSeriesData);
 	const userSeriesDataFilteredBySelection = userSeriesData.map((serie) =>
 		serie.data.reduce(
 			(filtered, dataTuple) => {
@@ -86,7 +82,6 @@ const DataGraph = ({ selectedValues }) => {
 	const userSeriesDataSum = userSeriesDataFilteredBySelection.map((serie) => {
 		let total = 0
 		serie.forEach((dataSet) => {
-			console.log(dataSet.y)
 			total = total + dataSet.y
 		})
 		return total
@@ -94,6 +89,8 @@ const DataGraph = ({ selectedValues }) => {
 
 	console.log(userSeriesDataFilteredBySelection)
 	console.log(userSeriesDataSum)
+
+	const music = userSeriesDataFilteredBySelection[0]
 
 	return (
 		<div className='min-h-screen flex items-center bg-gray-800'>
@@ -103,7 +100,7 @@ const DataGraph = ({ selectedValues }) => {
 						<CircleChart
 							label='Music'
 							//labels={lineChartDataLabels}
-							serieValue={userSeriesDataSum[0]}
+							serieValue={userSeriesDataSum[0] || 0}
 							maxValue={200}
 							color='#008ffb'
 						/>
@@ -112,7 +109,7 @@ const DataGraph = ({ selectedValues }) => {
 						<CircleChart
 							label='Photos'
 							//labels={lineChartDataLabels}
-							serieValue={userSeriesDataSum[1]}
+							serieValue={userSeriesDataSum[1] || 0}
 							maxValue={200}
 							color='#00e396'
 						/>
@@ -121,7 +118,7 @@ const DataGraph = ({ selectedValues }) => {
 						<CircleChart
 							label='Files'
 							//labels={lineChartDataLabels}
-							serieValue={userSeriesDataSum[2]}
+							serieValue={userSeriesDataSum[2] || 0}
 							maxValue={200}
 							color='#feb019'
 						/>

@@ -13,15 +13,15 @@ import moment from 'moment'
 
 import { useDispatch } from 'react-redux'
 import chartSlice, {
+	fetchData,
 	setInitialChartData,
 } from '../redux/features/chartData/chartSlice'
 
 export default function Home({ chartData }) {
 	const dispatch = useDispatch()
-	useEffect(function onFirstMount() {
-		initDefaultCharLayout()
-		dispatch(setInitialChartData(chartData))
-		// call store - mutate data
+
+	useEffect(async () => {
+		dispatch(fetchData());
 	}, []) // empty dependencies array means "run this once on first mount"
 
 	const [rangePickerSelectedValues, setRangePickerSelectedValues] = useState([
@@ -69,13 +69,3 @@ export default function Home({ chartData }) {
 	)
 }
 
-export const getStaticProps = async () => {
-	const resChartData = await fetch(`${server}/api/chartData`)
-	const chartData = await resChartData.json()
-
-	return {
-		props: {
-			chartData,
-		},
-	}
-}

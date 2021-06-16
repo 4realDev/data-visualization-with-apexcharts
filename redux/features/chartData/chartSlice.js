@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import {server} from "../../../config/config";
 
 export const chartSlice = createSlice({
 	name: 'chartData', // called for example with useSelector((state) => state.barChart.series)
@@ -16,6 +17,17 @@ export const chartSlice = createSlice({
 		},
 	},
 })
+
+export const fetchData = () => async dispatch => {
+	console.log('here 2');
+	const resChartData = await fetch(`${server}/api/chartData`);
+	console.log('....', resChartData);
+	const chartData = await resChartData.json();
+
+	console.log('data', chartData);
+
+	dispatch(setInitialChartData(chartData));
+};
 
 // Action creators are generated for each case reducer function
 export const { setInitialChartData } = chartSlice.actions
