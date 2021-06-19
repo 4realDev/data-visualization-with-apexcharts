@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
-import { useEffect } from 'react'
 
 // CircleChart currently only supports no range settings (values will be always related to 100% range)
 
@@ -115,7 +114,7 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 		<div>
 			<Chart
 				options={options}
-				series={[serieValue]}
+				series={serieValue}
 				type='radialBar'
 				height='250'
 				width='100%'

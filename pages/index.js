@@ -1,4 +1,3 @@
-import { server } from '../config/config'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
@@ -14,13 +13,15 @@ import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import chartSlice, {
 	setInitialChartData,
+	fetchChartData,
 } from '../redux/features/chartData/chartSlice'
 
 export default function Home({ chartData }) {
 	const dispatch = useDispatch()
 	useEffect(function onFirstMount() {
 		initDefaultCharLayout()
-		dispatch(setInitialChartData(chartData))
+		dispatch(fetchChartData())
+		//dispatch(setInitialChartData(chartData))
 		// call store - mutate data
 	}, []) // empty dependencies array means "run this once on first mount"
 
@@ -67,15 +68,4 @@ export default function Home({ chartData }) {
 			<DataGraph selectedValues={rangePickerSelectedValues} />
 		</div>
 	)
-}
-
-export const getStaticProps = async () => {
-	const resChartData = await fetch(`${server}/api/chartData`)
-	const chartData = await resChartData.json()
-
-	return {
-		props: {
-			chartData,
-		},
-	}
 }
