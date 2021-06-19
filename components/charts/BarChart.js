@@ -4,15 +4,9 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false }) // laten
 import { useEffect } from 'react'
 
 const BarChart = ({ title, subtitle, series, zoom }) => {
-	useEffect(
-		function () {
-			onZoomX(
-				parseInt(zoom[0].format('MM')),
-				parseInt(zoom[1].format('MM'))
-			)
-		},
-		[zoom]
-	) // empty dependencies array means "run this once on first mount"
+	useEffect(() => {
+		onZoomX(parseInt(zoom[0].format('MM')), parseInt(zoom[1].format('MM')))
+	}, [zoom]) // empty dependencies array means "run this once on first mount"
 
 	const options = {
 		title: { text: title },
