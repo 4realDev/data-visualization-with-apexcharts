@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 
 const BarChart = ({ title, subtitle, series, zoom }) => {
 	useEffect(() => {
-		onZoomX(parseInt(zoom[0].format('MM')), parseInt(zoom[1].format('MM')))
+		onZoomX(zoom[0], zoom[1])
 	}, [zoom]) // empty dependencies array means "run this once on first mount"
 
 	const options = {
@@ -30,8 +30,8 @@ const BarChart = ({ title, subtitle, series, zoom }) => {
 			colors: ['#008FFB', '#00E396', '#FEB019'],
 		},
 		xaxis: {
-			min: parseInt(zoom[0].format('MM')),
-			max: parseInt(zoom[1].format('MM')),
+			min: zoom[0],
+			max: zoom[1],
 			hideOverlappingLabels: true, // needed for zooming
 			tickPlacement: 'on', // needed for zooming
 		},
