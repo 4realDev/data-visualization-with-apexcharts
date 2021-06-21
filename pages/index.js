@@ -10,43 +10,38 @@ import Select from '../components/ant-design/AntSelect'
 import RangePicker from '../components/ant-design/AntRangePicker'
 import moment from 'moment'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import chartSlice, {
-	setInitialChartData,
 	fetchChartData,
+	filterNormalizedSeriesByMonths,
 } from '../redux/features/chartData/chartSlice'
+import rangePickerSlice, {
+	setRangePickerSelection,
+	setRangePickerSelectionMonths,
+} from '../redux/features/rangePicker/rangePickerSlice'
 
 export default function Home({ chartData }) {
 	const dispatch = useDispatch()
+
+	const rangePickerSelection = useSelector(
+		(state) => state.rangePicker.selection
+	)
+	const rangePickerEnabledValues = useSelector(
+		(state) => state.rangePicker.enabledValues
+	)
+
 	useEffect(function onFirstMount() {
 		initDefaultCharLayout()
 		dispatch(fetchChartData())
-		//dispatch(setInitialChartData(chartData))
-		// call store - mutate data
 	}, []) // empty dependencies array means "run this once on first mount"
 
-	const [rangePickerSelectedValues, setRangePickerSelectedValues] = useState([
-		moment('2021-01', 'YYYY-MM'),
-		moment('2021-12', 'YYYY-MM'),
-	])
-
-	const rangePickerEnabledValues = [
-		'2021-01',
-		'2021-02',
-		'2021-03',
-		'2021-04',
-		'2021-05',
-		'2021-06',
-		'2021-07',
-		'2021-08',
-		'2021-09',
-		'2021-10',
-		'2021-11',
-		'2021-12',
-	]
-
-	const onRangePickerValuesChanged = (newValues) => {
-		setRangePickerSelectedValues(newValues)
+	const onRangePickerValuesChanged = (newSelection) => {
+		const newSelectionMonths = newSelection.map(
+			(selection) => parseInt(selection.month() + 1) // convert "Mon Feb 01 2021" to "02"
+		)
+		dispatch(setRangePickerSelection(newSelection))
+		dispatch(setRangePickerSelectionMonths(newSelectionMonths))
+		dispatch(filterNormalizedSeriesByMonths(newSelectionMonths))
 	}
 
 	return (
@@ -60,12 +55,12 @@ export default function Home({ chartData }) {
 			</p>
 			<div className='px-20'>
 				<RangePicker
-					selectedValues={rangePickerSelectedValues}
+					selectedValues={rangePickerSelection}
 					enabledValues={rangePickerEnabledValues}
 					onChange={onRangePickerValuesChanged}
 				/>
 			</div>
-			<DataGraph selectedValues={rangePickerSelectedValues} />
+			<DataGraph selection={rangePickerSelection} />
 		</div>
 	)
 }

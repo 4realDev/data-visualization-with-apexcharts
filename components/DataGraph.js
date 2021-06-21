@@ -6,11 +6,23 @@ import LineAreaChart from '../components/charts/LineAreaChart'
 import HeatMapChart from '../components/charts/HeatMapChart'
 import { useSelector } from 'react-redux'
 
+import { renderSeriesDataMonths } from '../components/helper/NormalizerMonths'
+
 import { Spin } from 'antd'
 
-const DataGraph = ({ selectedValues }) => {
+const DataGraph = ({ selection }) => {
 	const userSeriesData = useSelector((state) => state.chartData.series)
+
+	const filteredNormalizedSeriesData = useSelector(
+		(state) => state.chartData.filteredNormalizedSeries
+	)
+
+	const filteredRenderedSeriesData = renderSeriesDataMonths(
+		filteredNormalizedSeriesData
+	)
+
 	const userSeriesLoading = useSelector((state) => state.chartData.loading)
+
 	useEffect(() => {
 		if (userSeriesLoading === 'idle') {
 			console.log(userSeriesLoading)
@@ -19,66 +31,9 @@ const DataGraph = ({ selectedValues }) => {
 		}
 	}, [userSeriesLoading])
 
-	const selectedMonths = selectedValues.map((selectedValue) =>
-		parseInt(selectedValue.month())
-	)
-
-	const userSeriesDataFilteredBySelection = userSeriesData.map((serie) =>
-		serie.data.reduce((filtered, dataTuple) => {
-			let month = undefined
-			switch (dataTuple.x) {
-				case 'January':
-					month = 0
-					break
-				case 'February':
-					month = 1
-					break
-				case 'March':
-					month = 2
-					break
-				case 'April':
-					month = 3
-					break
-				case 'May':
-					month = 4
-					break
-				case 'June':
-					month = 5
-					break
-				case 'July':
-					month = 6
-					break
-				case 'August':
-					month = 7
-					break
-				case 'September':
-					month = 8
-					break
-				case 'October':
-					month = 9
-					break
-				case 'November':
-					month = 10
-					break
-				case 'December':
-					month = 11
-					break
-				default:
-					console.warn(
-						'Month name ' +
-							dataTuple.x +
-							' does not match normalisation!'
-					)
-			}
-			if (month <= selectedMonths[1] && month >= selectedMonths[0])
-				filtered.push(dataTuple)
-			return filtered
-		}, [])
-	)
-
-	const userSeriesDataSum = userSeriesDataFilteredBySelection.map((serie) => {
+	const userSeriesDataSum = filteredRenderedSeriesData.map((serie) => {
 		let total = 0
-		serie.forEach((dataSet) => {
+		serie.data.forEach((dataSet) => {
 			total = total + dataSet.y
 		})
 		return total
@@ -87,8 +42,6 @@ const DataGraph = ({ selectedValues }) => {
 	const musicDataSum = userSeriesLoading === 'idle' ? userSeriesDataSum[0] : 1
 	const photoDataSum = userSeriesLoading === 'idle' ? userSeriesDataSum[1] : 1
 	const fileDataSum = userSeriesLoading === 'idle' ? userSeriesDataSum[2] : 1
-
-	console.log(musicDataSum)
 
 	return (
 		<div className='min-h-screen flex items-center bg-gray-800'>
@@ -125,16 +78,16 @@ const DataGraph = ({ selectedValues }) => {
 							title='Largest U.S Cities By Population'
 							subtitle='Statistics'
 							//labels={lineChartDataLabels}
-							series={userSeriesData}
-							zoom={selectedValues}
+							series={filteredRenderedSeriesData}
+							zoom={selection}
 						/>
 					</div>
 					<div className='col-span-3 row-span-1'>
 						<BarChart
 							title='Largest U.S Cities By Population'
 							subtitle='Statistics'
-							series={userSeriesData}
-							zoom={selectedValues}
+							series={filteredRenderedSeriesData}
+							zoom={selection}
 						/>
 					</div>
 					<div className='col-span-3 row-span-1'>
