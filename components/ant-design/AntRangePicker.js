@@ -7,7 +7,7 @@ const AntRangePicker = ({ selectedValues, enabledValues, onChange }) => {
 	const [dates, setDates] = useState([])
 	// called for every picker-cell (x24 for months)
 	const disabledDate = (current) => {
-		let nothingSelected = !dates || dates.length === 0
+		const nothingSelected = !dates || dates.length === 0
 
 		// triggered when nothing is selected
 		if (nothingSelected) {
@@ -26,6 +26,7 @@ const AntRangePicker = ({ selectedValues, enabledValues, onChange }) => {
 		<div>
 			<RangePicker
 				picker='month'
+				allowClear={false}
 				defaultValue={selectedValues}
 				defaultPickerValue={selectedValues}
 				disabledDate={(current) => disabledDate(current)}
