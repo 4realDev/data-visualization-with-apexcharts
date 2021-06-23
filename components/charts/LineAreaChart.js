@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { useState } from 'react'
+import { COLORS } from '../../helper/colors'
 
 const LineAreaChart = () => {
 	const [options, setOptions] = useState({
@@ -22,7 +23,11 @@ const LineAreaChart = () => {
 		stroke: {
 			show: true,
 			width: 2,
-			colors: ['#008FFB', '#00E396', '#FEB019'],
+			colors: [
+				COLORS.chartDataBlue,
+				COLORS.chartDataGreen,
+				COLORS.chartDataOrange,
+			],
 			curve: 'straight', // smooth / straight / stepline
 		},
 		markers: {

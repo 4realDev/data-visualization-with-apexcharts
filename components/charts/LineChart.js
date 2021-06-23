@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { useEffect } from 'react'
+import { COLORS } from '../../helper/colors'
 
 const LineChart = ({ title, subtitle, series, zoom }) => {
 	useEffect(() => {
@@ -23,7 +24,11 @@ const LineChart = ({ title, subtitle, series, zoom }) => {
 		stroke: {
 			show: true,
 			width: 2,
-			colors: ['#008FFB', '#00E396', '#FEB019'],
+			colors: [
+				COLORS.chartDataBlue,
+				COLORS.chartDataGreen,
+				COLORS.chartDataOrange,
+			],
 			curve: 'smooth', // smooth / straight / stepline
 		},
 		markers: {

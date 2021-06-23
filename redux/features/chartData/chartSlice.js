@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { server } from '../../../config/config'
-import { normalizeSeriesDataMonths } from '../../../components/helper/NormalizerMonths'
+import { normalizeSeriesDataMonths } from '../../../helper/normalizerMonths'
 
 export const chartSlice = createSlice({
 	name: 'chartData', // called for example with useSelector((state) => state.chartData.series)

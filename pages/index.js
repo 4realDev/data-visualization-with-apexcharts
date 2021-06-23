@@ -12,6 +12,8 @@ import chartSlice, {
 	fetchChartData,
 } from '../redux/features/chartData/chartSlice'
 
+import { COLORS } from '../helper/colors'
+
 export default function Home({ chartData }) {
 	const dispatch = useDispatch()
 
@@ -21,7 +23,10 @@ export default function Home({ chartData }) {
 	}, []) // empty dependencies array means "run this once on first mount"
 
 	return (
-		<div className='min-h-screen bg-gray-800 p-10 sm:p-10 md:p-20'>
+		<div
+			className='min-h-screen p-10 sm:p-10 md:p-20'
+			style={{ backgroundColor: COLORS.mainLayoutBackground }}
+		>
 			<h1 className='text-white text-center text-4xl font-semibold py-5'>
 				DASHBOARD
 			</h1>

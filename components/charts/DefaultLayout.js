@@ -1,8 +1,10 @@
+import { COLORS } from '../../helper/colors'
+
 export function initDefaultCharLayout() {
 	window.Apex = {
 		chart: {
-			background: '#2B2D3E',
-			foreColor: '#cccccc',
+			background: COLORS.chartLayoutBackground,
+			foreColor: COLORS.chartLayoutForeground,
 			toolbar: { show: false },
 			zoom: { enabled: false },
 		},
@@ -18,7 +20,7 @@ export function initDefaultCharLayout() {
 		},
 		dataLabels: { enabled: false },
 		grid: {
-			borderColor: '#535A6C',
+			borderColor: COLORS.chartLayoutGrid,
 			xaxis: {
 				lines: {
 					show: true,

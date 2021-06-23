@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false }) // latency
 import { useEffect } from 'react'
+import { COLORS } from '../../helper/colors'
 
 const BarChart = ({ title, subtitle, series, zoom }) => {
 	useEffect(() => {
@@ -27,7 +28,11 @@ const BarChart = ({ title, subtitle, series, zoom }) => {
 		},
 		fill: {
 			// Array of color - possible to give every bar a specific color
-			colors: ['#008FFB', '#00E396', '#FEB019'],
+			colors: [
+				COLORS.chartDataBlue,
+				COLORS.chartDataGreen,
+				COLORS.chartDataOrange,
+			],
 		},
 		xaxis: {
 			min: zoom[0],

@@ -5,10 +5,8 @@ import CircleChart from '../components/charts/CircleChart'
 import LineAreaChart from '../components/charts/LineAreaChart'
 import HeatMapChart from '../components/charts/HeatMapChart'
 import { useSelector } from 'react-redux'
-
-import { renderSeriesDataMonths } from '../components/helper/NormalizerMonths'
-
-import { Spin } from 'antd'
+import { renderSeriesDataMonths } from '../helper/normalizerMonths'
+import { COLORS } from '../helper/colors'
 
 const DataGraphsContainer = () => {
 	const userSeriesData = useSelector((state) => state.chartData.series)
@@ -48,7 +46,10 @@ const DataGraphsContainer = () => {
 	const fileDataSum = userSeriesLoading === 'idle' ? userSeriesDataSum[2] : 1
 
 	return (
-		<div className='min-h-screen flex items-center bg-gray-800'>
+		<div
+			className='min-h-screen flex items-center'
+			style={{ backgroundColor: COLORS.mainLayoutBackground }}
+		>
 			<div className='flex-1 mx-auto text-gray-300'>
 				<div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 grid-rows-3 gap-y-0 gap-x-4 grid-flow-row'>
 					<div className='col-span-1 row-span-1 sm:col-span-1 md:col-span-2 justify-center items-center my-10'>
@@ -56,7 +57,7 @@ const DataGraphsContainer = () => {
 							label='Music'
 							serieValue={[musicDataSum]}
 							maxValue={200}
-							color='#008ffb'
+							color={COLORS.chartDataBlue}
 						/>
 					</div>
 					<div className='col-span-1 row-span-1 sm:col-span-1 md:col-span-2 justify-center items-center my-10'>
@@ -65,7 +66,7 @@ const DataGraphsContainer = () => {
 							//labels={lineChartDataLabels}
 							serieValue={[photoDataSum]}
 							maxValue={200}
-							color='#00e396'
+							color={COLORS.chartDataGreen}
 						/>
 					</div>
 					<div className='col-span-1 row-span-1 sm:col-span-1 md:col-span-2 justify-center items-center my-10'>
@@ -74,7 +75,7 @@ const DataGraphsContainer = () => {
 							//labels={lineChartDataLabels}
 							serieValue={[fileDataSum]}
 							maxValue={200}
-							color='#feb019'
+							color={COLORS.chartDataOrange}
 						/>
 					</div>
 					<div className='col-span-3 row-span-1'>

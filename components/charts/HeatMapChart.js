@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { useState } from 'react'
+import { COLORS } from '../../helper/colors'
 
 const HeatMapChart = () => {
 	const [options, setOptions] = useState({
@@ -15,37 +16,37 @@ const HeatMapChart = () => {
 						{
 							from: -30,
 							to: 5,
-							color: '#fef001',
+							color: COLORS.chartZoneMinimum,
 							name: 'minimum',
 						},
 						{
 							from: 6,
 							to: 20,
-							color: '#ffce03',
+							color: COLORS.chartZoneLow,
 							name: 'low',
 						},
 						{
 							from: 21,
 							to: 45,
-							color: '#fd9a01',
+							color: COLORS.chartZoneMedium,
 							name: 'medium',
 						},
 						{
 							from: 46,
 							to: 60,
-							color: '#fd6104',
+							color: COLORS.chartZoneHigh,
 							name: 'high',
 						},
 						{
 							from: 61,
 							to: 75,
-							color: '#ff2c05',
+							color: COLORS.chartZoneVeryHigh,
 							name: 'very high',
 						},
 						{
 							from: 76,
 							to: 90,
-							color: '#f00505',
+							color: COLORS.chartZoneDangerous,
 							name: 'dangerous',
 						},
 					],
@@ -65,7 +66,7 @@ const HeatMapChart = () => {
 		stroke: {
 			show: true,
 			width: 1.5,
-			colors: ['#2B2D3E'],
+			colors: [COLORS.chartLayoutBackground],
 		},
 		// fill: {
 		// 	opacity: 0.5,

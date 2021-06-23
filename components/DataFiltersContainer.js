@@ -10,7 +10,8 @@ import chartSlice, {
 } from '../redux/features/chartData/chartSlice'
 
 import Select from '../components/ant-design/AntSelect'
-// import moment from 'moment'
+
+import { COLORS } from '../helper/colors'
 
 const DataFiltersContainer = () => {
 	const dispatch = useDispatch()
@@ -32,7 +33,10 @@ const DataFiltersContainer = () => {
 	}
 
 	return (
-		<div>
+		<div
+			className='p-10'
+			style={{ backgroundColor: COLORS.chartLayoutBackground }}
+		>
 			<RangePicker
 				selectedValues={rangePickerSelection}
 				enabledValues={rangePickerEnabledValues}

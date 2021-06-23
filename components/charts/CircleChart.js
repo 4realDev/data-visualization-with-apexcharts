@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
+import { COLORS } from '../../helper/colors'
 
 // CircleChart currently only supports no range settings (values will be always related to 100% range)
-
 const CircleChart = ({ label, serieValue, maxValue, color }) => {
 	const options = {
 		chart: {
@@ -16,7 +16,7 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 				hollow: {
 					margin: 0,
 					size: '70%',
-					background: '#1f2937',
+					background: COLORS.mainLayoutBackground,
 					image: undefined,
 					imageOffsetX: 0,
 					imageOffsetY: 0,
@@ -30,7 +30,7 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 					},
 				},
 				track: {
-					background: '#1f2937',
+					background: COLORS.mainLayoutBackground,
 					strokeWidth: '67%',
 					margin: 0, // margin is in pixels
 					dropShadow: {
@@ -47,14 +47,14 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 					name: {
 						offsetY: -10,
 						show: true,
-						color: '#ccc',
+						color: COLORS.chartLayoutForeground,
 						fontSize: '17px',
 					},
 					value: {
 						formatter: function (val) {
 							return parseInt(val)
 						},
-						color: '#fff',
+						color: COLORS.mainLayoutText,
 						fontSize: '36px',
 						show: true,
 					},
@@ -67,7 +67,6 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 				shade: 'dark',
 				type: 'horizontal',
 				shadeIntensity: 0.5,
-				//gradientToColors: ['#fff'],
 				inverseColors: true,
 				opacityFrom: 1,
 				opacityTo: 1,
