@@ -51,34 +51,41 @@ const DataGraphsContainer = () => {
 			style={{ backgroundColor: COLORS.mainLayoutBackground }}
 		>
 			<div className='flex-1 mx-auto text-gray-300'>
-				<div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 grid-rows-3 gap-y-0 gap-x-4 grid-flow-row'>
-					<div className='col-span-1 row-span-1 sm:col-span-1 md:col-span-2 justify-center items-center my-10'>
-						<CircleChart
-							label='Music'
-							serieValue={[musicDataSum]}
-							maxValue={200}
-							color={COLORS.chartDataBlue}
-						/>
+				<div className='grid grid-cols-6 gap-y-0 gap-x-4 grid-flow-row'>
+					<div
+						className='col-span-6 row-span-1 grid grid-cols-3 my-4'
+						style={{
+							backgroundColor: COLORS.chartLayoutBackground,
+						}}
+					>
+						<div className='col-span-1 row-span-1 justify-center items-center my-10'>
+							<CircleChart
+								label='Music'
+								serieValue={[musicDataSum]}
+								maxValue={200}
+								color={COLORS.chartDataBlue}
+							/>
+						</div>
+						<div className='col-span-1 row-span-1 justify-center items-center my-10'>
+							<CircleChart
+								label='Photos'
+								//labels={lineChartDataLabels}
+								serieValue={[photoDataSum]}
+								maxValue={200}
+								color={COLORS.chartDataGreen}
+							/>
+						</div>
+						<div className='col-span-1 row-span-1 justify-center items-center my-10'>
+							<CircleChart
+								label='Files'
+								//labels={lineChartDataLabels}
+								serieValue={[fileDataSum]}
+								maxValue={200}
+								color={COLORS.chartDataOrange}
+							/>
+						</div>
 					</div>
-					<div className='col-span-1 row-span-1 sm:col-span-1 md:col-span-2 justify-center items-center my-10'>
-						<CircleChart
-							label='Photos'
-							//labels={lineChartDataLabels}
-							serieValue={[photoDataSum]}
-							maxValue={200}
-							color={COLORS.chartDataGreen}
-						/>
-					</div>
-					<div className='col-span-1 row-span-1 sm:col-span-1 md:col-span-2 justify-center items-center my-10'>
-						<CircleChart
-							label='Files'
-							//labels={lineChartDataLabels}
-							serieValue={[fileDataSum]}
-							maxValue={200}
-							color={COLORS.chartDataOrange}
-						/>
-					</div>
-					<div className='col-span-3 row-span-1'>
+					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<LineChart
 							title='Largest U.S Cities By Population'
 							subtitle='Statistics'
@@ -87,7 +94,7 @@ const DataGraphsContainer = () => {
 							zoom={rangePickerSelection}
 						/>
 					</div>
-					<div className='col-span-3 row-span-1'>
+					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<BarChart
 							title='Largest U.S Cities By Population'
 							subtitle='Statistics'
@@ -95,10 +102,10 @@ const DataGraphsContainer = () => {
 							zoom={rangePickerSelection}
 						/>
 					</div>
-					<div className='col-span-3 row-span-1'>
+					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
 						<LineAreaChart />
 					</div>
-					<div className='col-span-3 row-span-1'>
+					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
 						<HeatMapChart />
 					</div>
 				</div>
