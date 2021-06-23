@@ -42,6 +42,7 @@ const DataFiltersContainer = () => {
 				enabledValues={rangePickerEnabledValues}
 				onChange={onRangePickerValuesChanged}
 			/>
+			<Select />
 		</div>
 	)
 }
