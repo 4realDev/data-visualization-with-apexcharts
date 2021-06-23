@@ -10,8 +10,12 @@ import { renderSeriesDataMonths } from '../components/helper/NormalizerMonths'
 
 import { Spin } from 'antd'
 
-const DataGraphsContainer = ({ selection }) => {
+const DataGraphsContainer = () => {
 	const userSeriesData = useSelector((state) => state.chartData.series)
+
+	const rangePickerSelection = useSelector(
+		(state) => state.rangePicker.selection
+	)
 
 	const filteredNormalizedSeriesData = useSelector(
 		(state) => state.chartData.filteredNormalizedSeries
@@ -45,7 +49,7 @@ const DataGraphsContainer = ({ selection }) => {
 
 	return (
 		<div className='min-h-screen flex items-center bg-gray-800'>
-			<div className='flex-1 mx-auto text-gray-300 p-10 sm:p-10 md:p-15'>
+			<div className='flex-1 mx-auto text-gray-300'>
 				<div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-6 grid-rows-3 gap-y-0 gap-x-4 grid-flow-row'>
 					<div className='col-span-1 row-span-1 sm:col-span-1 md:col-span-2 justify-center items-center my-10'>
 						<CircleChart
@@ -79,7 +83,7 @@ const DataGraphsContainer = ({ selection }) => {
 							subtitle='Statistics'
 							//labels={lineChartDataLabels}
 							series={filteredRenderedSeriesData}
-							zoom={selection}
+							zoom={rangePickerSelection}
 						/>
 					</div>
 					<div className='col-span-3 row-span-1'>
@@ -87,7 +91,7 @@ const DataGraphsContainer = ({ selection }) => {
 							title='Largest U.S Cities By Population'
 							subtitle='Statistics'
 							series={filteredRenderedSeriesData}
-							zoom={selection}
+							zoom={rangePickerSelection}
 						/>
 					</div>
 					<div className='col-span-3 row-span-1'>
