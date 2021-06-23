@@ -10,7 +10,7 @@ import { renderSeriesDataMonths } from '../components/helper/NormalizerMonths'
 
 import { Spin } from 'antd'
 
-const DataGraph = ({ selection }) => {
+const DataGraphsContainer = ({ selection }) => {
 	const userSeriesData = useSelector((state) => state.chartData.series)
 
 	const filteredNormalizedSeriesData = useSelector(
@@ -102,4 +102,4 @@ const DataGraph = ({ selection }) => {
 	)
 }
 
-export default DataGraph
+export default DataGraphsContainer

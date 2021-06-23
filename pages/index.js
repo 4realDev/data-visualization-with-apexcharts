@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import React, { useState, useEffect } from 'react'
 
-import DataGraph from '../components/DataGraph'
+import DataGraphsContainer from '../components/DataGraphsContainer'
 import { initDefaultCharLayout } from '../components/charts/DefaultLayout'
 
 import Select from '../components/ant-design/AntSelect'
@@ -60,7 +60,7 @@ export default function Home({ chartData }) {
 					onChange={onRangePickerValuesChanged}
 				/>
 			</div>
-			<DataGraph selection={rangePickerSelection} />
+			<DataGraphsContainer selection={rangePickerSelection} />
 		</div>
 	)
 }
