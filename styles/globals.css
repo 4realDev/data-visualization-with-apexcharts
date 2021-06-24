@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width: 560px) {
+	.ant-picker-panels{
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.ant-picker-range-arrow {
+		margin-left: 120px !important;
+	}
+
+	.ant-picker-range-wrapper {
+		display: flex;
+		width: 100vw;
+		justify-content: center;
+	}
+}
+
 html,
 body {
 	padding: 0;
