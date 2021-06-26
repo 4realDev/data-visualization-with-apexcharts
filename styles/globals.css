@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'antd/dist/antd.css';
+
+.anticon>svg {
+	display: block !important;
+	margin: auto !important;
+	height: 100% !important;
+}
+
+.ant-collapse {
+	background: #2B2D3E !important;
+}
+
+.ant-collapse-borderless{
+	background: #2B2D3E !important;
+}
+
+.ant-collapse-item {
+	border: none !important;
+}
+
+.ant-collapse-item-active{
+	border: none !important;
+}
+
+.ant-collapse-header{
+	color: white !important;
+	font-weight: bold;
+}
+
+.ant-collapse-content {
+	padding: 0px !important;
+}
+
+.ant-collapse-content-box {
+	padding: 0px !important;
+}
+
+.ant-collapse-content-active{
+	padding: 0px !important;
+}
+
 @media (max-width: 560px) {
 	.ant-picker-panels{
 		flex-direction: column;

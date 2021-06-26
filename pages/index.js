@@ -23,7 +23,7 @@ export default function Home({ chartData }) {
 
 	return (
 		<div
-			className='min-h-screen p-10 sm:p-10 md:p-20'
+			className='min-h-screen p-5 sm:p-10 md:p-20'
 			style={{ backgroundColor: COLORS.mainLayoutBackground }}
 		>
 			<h1 className='text-white text-center text-4xl font-semibold py-5'>

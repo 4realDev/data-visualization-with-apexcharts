@@ -4,6 +4,10 @@ import LineChart from '../components/charts/LineChart'
 import CircleChart from '../components/charts/CircleChart'
 import LineAreaChart from '../components/charts/LineAreaChart'
 import HeatMapChart from '../components/charts/HeatMapChart'
+
+import { Collapse } from 'antd'
+const { Panel } = Collapse
+
 import { useSelector } from 'react-redux'
 import { renderSeriesDataMonths } from '../helper/normalizerMonths'
 import { COLORS } from '../helper/colors'
@@ -47,43 +51,50 @@ const DataGraphsContainer = () => {
 
 	return (
 		<div
-			className='min-h-screen flex items-center'
+			className='min-h-screen flex'
 			style={{ backgroundColor: COLORS.mainLayoutBackground }}
 		>
 			<div className='flex-1 mx-auto text-gray-300'>
 				<div className='grid grid-cols-6 gap-y-0 gap-x-4 grid-flow-row'>
-					<div
-						className='col-span-6 row-span-1 grid grid-cols-3 my-4'
-						style={{
-							backgroundColor: COLORS.chartLayoutBackground,
-						}}
-					>
-						<div className='col-span-1 row-span-1 justify-center items-center my-10'>
-							<CircleChart
-								label='Music'
-								serieValue={[musicDataSum]}
-								maxValue={200}
-								color={COLORS.chartDataBlue}
-							/>
-						</div>
-						<div className='col-span-1 row-span-1 justify-center items-center my-10'>
-							<CircleChart
-								label='Photos'
-								//labels={lineChartDataLabels}
-								serieValue={[photoDataSum]}
-								maxValue={200}
-								color={COLORS.chartDataGreen}
-							/>
-						</div>
-						<div className='col-span-1 row-span-1 justify-center items-center my-10'>
-							<CircleChart
-								label='Files'
-								//labels={lineChartDataLabels}
-								serieValue={[fileDataSum]}
-								maxValue={200}
-								color={COLORS.chartDataOrange}
-							/>
-						</div>
+					<div className='col-span-6 row-span-1 my-4'>
+						<Collapse bordered={false} defaultActiveKey={['1']}>
+							<Panel header='TOTAL AMOUNT OF DATA' key='1'>
+								<div
+									className='grid grid-cols-3'
+									style={{
+										backgroundColor:
+											COLORS.chartLayoutBackground,
+									}}
+								>
+									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
+										<CircleChart
+											label='Music'
+											serieValue={[musicDataSum]}
+											maxValue={200}
+											color={COLORS.chartDataBlue}
+										/>
+									</div>
+									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
+										<CircleChart
+											label='Photos'
+											//labels={lineChartDataLabels}
+											serieValue={[photoDataSum]}
+											maxValue={200}
+											color={COLORS.chartDataGreen}
+										/>
+									</div>
+									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
+										<CircleChart
+											label='Files'
+											//labels={lineChartDataLabels}
+											serieValue={[fileDataSum]}
+											maxValue={200}
+											color={COLORS.chartDataOrange}
+										/>
+									</div>
+								</div>
+							</Panel>
+						</Collapse>
 					</div>
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<LineChart
