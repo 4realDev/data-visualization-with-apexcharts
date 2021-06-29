@@ -5,7 +5,6 @@ export const rangePickerSlice = createSlice({
 	name: 'rangePicker', // called for example with useSelector((state) => state.barChart.series)
 	initialState: {
 		selection: [moment('2021-01', 'YYYY-MM'), moment('2021-12', 'YYYY-MM')],
-		selectionMonths: [],
 		enabledValues: [
 			'2021-01',
 			'2021-02',
@@ -30,13 +29,9 @@ export const rangePickerSlice = createSlice({
 		setRangePickerSelection: (state, action) => {
 			state.selection = action.payload
 		},
-		setRangePickerSelectionMonths: (state, action) => {
-			state.selectionMonths = action.payload
-		},
 	},
 })
 
 // Action creators are generated for each case reducer function
-export const { setRangePickerSelection, setRangePickerSelectionMonths } =
-	rangePickerSlice.actions
+export const { setRangePickerSelection } = rangePickerSlice.actions
 export default rangePickerSlice.reducer

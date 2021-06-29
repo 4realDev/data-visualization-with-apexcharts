@@ -39,22 +39,30 @@ export const chartSlice = createSlice({
 			state.filteredNormalizedSeries = state.normalizedSeries
 		},
 
-		filterNormalizedSeriesByMonths: (state, action) => {
-			state.filteredNormalizedSeries = state.normalizedSeries.map(
-				(serie) => {
-					return {
-						name: serie.name,
-						data: serie.data.reduce((filtered, dataTuple) => {
-							if (
-								dataTuple.x >= action.payload[0] &&
-								dataTuple.x <= action.payload[1]
-							)
-								filtered.push(dataTuple)
-							return filtered
-						}, []),
-					}
-				}
-			)
+		filterNormalizedData: (state, action) => {
+			const normalizedSeriesFilteredBySerieAndMonthSelection =
+				state.normalizedSeries
+					.filter((serie) =>
+						action.payload.seriesSelection.includes(serie.name)
+					)
+					.map((serie) => {
+						return {
+							name: serie.name,
+							data: serie.data.reduce((filtered, dataTuple) => {
+								if (
+									dataTuple.x >=
+										action.payload.rangeSelection[0] &&
+									dataTuple.x <=
+										action.payload.rangeSelection[1]
+								)
+									filtered.push(dataTuple)
+								return filtered
+							}, []),
+						}
+					})
+
+			state.filteredNormalizedSeries =
+				normalizedSeriesFilteredBySerieAndMonthSelection
 		},
 	},
 })
@@ -90,6 +98,6 @@ export const {
 	usersReceived,
 	setFetchedSeries,
 	setNormalizedSeries,
-	filterNormalizedSeriesByMonths,
+	filterNormalizedData,
 } = chartSlice.actions
 export default chartSlice.reducer

@@ -1,12 +1,16 @@
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import RangePicker from '../components/ant-design/AntRangePicker'
 import rangePickerSlice, {
 	setRangePickerSelection,
-	setRangePickerSelectionMonths,
 } from '../redux/features/rangePicker/rangePickerSlice'
 
+import selectFilterSlice, {
+	setSelectFilterSelection,
+} from '../redux/features/selectFilter/selectFilterSlice'
+
 import chartSlice, {
-	filterNormalizedSeriesByMonths,
+	filterNormalizedData,
 } from '../redux/features/chartData/chartSlice'
 
 import Select from '../components/ant-design/AntSelect'
@@ -23,26 +27,64 @@ const DataFiltersContainer = () => {
 		(state) => state.rangePicker.enabledValues
 	)
 
-	const onRangePickerValuesChanged = (newSelection) => {
-		const newSelectionMonths = newSelection.map(
+	const selectFilterInitialSelection = useSelector(
+		(state) => state.selectFilter.initialSelection
+	)
+
+	const selectFilterSelection = useSelector(
+		(state) => state.selectFilter.selection
+	)
+
+	const handleRangePickerOnChanged = (rangeSelection) => {
+		const rangeFilterSelectionMonths = rangeSelection.map(
 			(selection) => parseInt(selection.month() + 1) // convert "Mon Feb 01 2021" to "02"
 		)
-		dispatch(setRangePickerSelection(newSelection))
-		dispatch(setRangePickerSelectionMonths(newSelectionMonths))
-		dispatch(filterNormalizedSeriesByMonths(newSelectionMonths))
+		dispatch(setRangePickerSelection(rangeSelection))
+		dispatch(
+			filterNormalizedData({
+				rangeSelection: rangeFilterSelectionMonths,
+				seriesSelection: selectFilterSelection,
+			})
+		)
+	}
+
+	const handleSelectFilterOnChange = (seriesFilterSelection) => {
+		const rangeFilterSelectionMonths = rangePickerSelection.map(
+			(selection) => parseInt(selection.month() + 1) // convert "Mon Feb 01 2021" to "02"
+		)
+		dispatch(setSelectFilterSelection(seriesFilterSelection))
+		dispatch(
+			filterNormalizedData({
+				rangeSelection: rangeFilterSelectionMonths,
+				seriesSelection: seriesFilterSelection,
+			})
+		)
 	}
 
 	return (
 		<div
-			className='p-10'
+			className='flex justify-start flex-row p-10 gap-5'
 			style={{ backgroundColor: COLORS.chartLayoutBackground }}
 		>
-			<RangePicker
-				selectedValues={rangePickerSelection}
-				enabledValues={rangePickerEnabledValues}
-				onChange={onRangePickerValuesChanged}
-			/>
-			<Select />
+			<div>
+				<h3 className='text-white text-left text-sm font-bold'>
+					MONTH RANGE SELECTION
+				</h3>
+				<RangePicker
+					selectedValues={rangePickerSelection}
+					enabledValues={rangePickerEnabledValues}
+					onChange={handleRangePickerOnChanged}
+				/>
+			</div>
+			<div>
+				<h3 className='text-white text-left text-sm font-bold'>
+					SERIES SELECTION
+				</h3>
+				<Select
+					selectOptions={selectFilterInitialSelection}
+					onChange={handleSelectFilterOnChange}
+				/>
+			</div>
 		</div>
 	)
 }
