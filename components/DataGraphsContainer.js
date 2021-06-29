@@ -13,21 +13,11 @@ import { renderSeriesDataMonths } from '../helper/normalizerMonths'
 import { COLORS } from '../helper/colors'
 
 const DataGraphsContainer = () => {
-	const userSeriesData = useSelector((state) => state.chartData.series)
+	const rangePickerSelection = useSelector((state) => state.rangePicker.selection)
 
-	const rangePickerSelection = useSelector(
-		(state) => state.rangePicker.selection
-	)
+	const filteredNormalizedSeriesData = useSelector((state) => state.chartData.filteredNormalizedSeries)
 
-	const filteredNormalizedSeriesData = useSelector(
-		(state) => state.chartData.filteredNormalizedSeries
-	)
-
-	const filteredRenderedSeriesData = renderSeriesDataMonths(
-		filteredNormalizedSeriesData
-	)
-
-	const userSeriesLoading = useSelector((state) => state.chartData.loading)
+	const filteredRenderedSeriesData = renderSeriesDataMonths(filteredNormalizedSeriesData)
 
 	const userSeriesDataSum = filteredRenderedSeriesData.map((serie) => {
 		let total = 0
@@ -37,26 +27,12 @@ const DataGraphsContainer = () => {
 		return { name: serie.name, sum: total }
 	})
 
-	const musicCircleChartData =
-		userSeriesDataSum && userSeriesDataSum.length > 0
-			? userSeriesDataSum.find((serie) => serie.name === 'Music')
-			: undefined
-
-	const photosCircleChartData =
-		userSeriesDataSum && userSeriesDataSum.length > 0
-			? userSeriesDataSum.find((serie) => serie.name === 'Photos')
-			: undefined
-
-	const filesCircleChartData =
-		userSeriesDataSum && userSeriesDataSum.length > 0
-			? userSeriesDataSum.find((serie) => serie.name === 'Files')
-			: undefined
+	const musicCircleChartData = userSeriesDataSum.find((serie) => serie.name === 'Music')
+	const photosCircleChartData = userSeriesDataSum.find((serie) => serie.name === 'Photos')
+	const filesCircleChartData = userSeriesDataSum.find((serie) => serie.name === 'Files')
 
 	return (
-		<div
-			className='min-h-screen flex'
-			style={{ backgroundColor: COLORS.mainLayoutBackground }}
-		>
+		<div className='min-h-screen flex' style={{ backgroundColor: COLORS.mainLayoutBackground }}>
 			<div className='flex-1 mx-auto text-gray-300'>
 				<div className='grid grid-cols-6 gap-y-0 gap-x-4 grid-flow-row'>
 					<div className='col-span-6 row-span-1 my-4'>
@@ -65,56 +41,29 @@ const DataGraphsContainer = () => {
 								<div
 									className='grid grid-cols-3'
 									style={{
-										backgroundColor:
-											COLORS.chartLayoutBackground,
+										backgroundColor: COLORS.chartLayoutBackground,
 									}}
 								>
 									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
 										<CircleChart
-											label={
-												musicCircleChartData
-													? musicCircleChartData.name
-													: ''
-											}
-											serieValue={
-												musicCircleChartData
-													? [musicCircleChartData.sum]
-													: []
-											}
+											label={musicCircleChartData ? musicCircleChartData.name : ''}
+											serieValue={musicCircleChartData ? [musicCircleChartData.sum] : []}
 											maxValue={200}
 											color={COLORS.chartDataBlue}
 										/>
 									</div>
 									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
 										<CircleChart
-											label={
-												photosCircleChartData
-													? photosCircleChartData.name
-													: ''
-											}
-											serieValue={
-												photosCircleChartData
-													? [
-															photosCircleChartData.sum,
-													  ]
-													: []
-											}
+											label={photosCircleChartData ? photosCircleChartData.name : ''}
+											serieValue={photosCircleChartData ? [photosCircleChartData.sum] : []}
 											maxValue={200}
 											color={COLORS.chartDataGreen}
 										/>
 									</div>
 									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
 										<CircleChart
-											label={
-												filesCircleChartData
-													? filesCircleChartData.name
-													: ''
-											}
-											serieValue={
-												filesCircleChartData
-													? [filesCircleChartData.sum]
-													: []
-											}
+											label={filesCircleChartData ? filesCircleChartData.name : ''}
+											serieValue={filesCircleChartData ? [filesCircleChartData.sum] : []}
 											maxValue={200}
 											color={COLORS.chartDataOrange}
 										/>
