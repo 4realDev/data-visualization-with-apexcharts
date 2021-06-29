@@ -102,6 +102,17 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 				},
 			},
 		],
+		noData: {
+			text: 'no data ...',
+			align: 'center',
+			verticalAlign: 'middle',
+			offsetX: 0,
+			offsetY: 0,
+			style: {
+				color: COLORS.chartLayoutForeground,
+				fontSize: '14px',
+			},
+		},
 	}
 
 	const max = maxValue
