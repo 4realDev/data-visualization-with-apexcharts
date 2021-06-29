@@ -122,13 +122,7 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 
 	return (
 		<div>
-			<Chart
-				options={options}
-				series={serieValue}
-				type='radialBar'
-				height='250'
-				width='100%'
-			/>
+			<Chart options={options} series={serieValue} type='radialBar' height='250' width='100%' />
 		</div>
 	)
 }

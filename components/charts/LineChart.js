@@ -2,9 +2,8 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { useEffect } from 'react'
-import { COLORS } from '../../helper/colors'
 
-const LineChart = ({ title, subtitle, series, zoom }) => {
+const LineChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 	useEffect(() => {
 		onZoomX(zoom[0], zoom[1])
 	}, [zoom]) // empty dependencies array means "run this once on first mount"
@@ -24,16 +23,13 @@ const LineChart = ({ title, subtitle, series, zoom }) => {
 		stroke: {
 			show: true,
 			width: 2,
-			colors: [
-				COLORS.chartDataBlue,
-				COLORS.chartDataGreen,
-				COLORS.chartDataOrange,
-			],
+			colors: seriesColor,
 			curve: 'smooth', // smooth / straight / stepline
 		},
 		markers: {
 			size: 6,
 			strokeWidth: 0, // stroke around marker
+			colors: seriesColor,
 			hover: {
 				size: 9,
 			},
@@ -43,6 +39,12 @@ const LineChart = ({ title, subtitle, series, zoom }) => {
 			max: zoom[1],
 			hideOverlappingLabels: true, // needed for zooming
 			tickPlacement: 'on', // needed for zooming
+		},
+		legend: {
+			showForSingleSeries: true,
+			markers: {
+				fillColors: seriesColor,
+			},
 		},
 	}
 

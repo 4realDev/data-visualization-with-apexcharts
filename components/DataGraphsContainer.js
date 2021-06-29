@@ -27,6 +27,25 @@ const DataGraphsContainer = () => {
 		return { name: serie.name, sum: total }
 	})
 
+	const getSeriesColor = (series) => {
+		if (series === undefined) return
+		let seriesColorArray = []
+		series.forEach((serie) => {
+			switch (serie.name) {
+				case 'Music':
+					seriesColorArray.push(COLORS.chartDataBlue)
+					break
+				case 'Photos':
+					seriesColorArray.push(COLORS.chartDataGreen)
+					break
+				case 'Files':
+					seriesColorArray.push(COLORS.chartDataOrange)
+					break
+			}
+		})
+		return seriesColorArray
+	}
+
 	const musicCircleChartData = userSeriesDataSum.find((serie) => serie.name === 'Music')
 	const photosCircleChartData = userSeriesDataSum.find((serie) => serie.name === 'Photos')
 	const filesCircleChartData = userSeriesDataSum.find((serie) => serie.name === 'Files')
@@ -78,6 +97,7 @@ const DataGraphsContainer = () => {
 							subtitle='Statistics'
 							//labels={lineChartDataLabels}
 							series={filteredRenderedSeriesData}
+							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
 							zoom={rangePickerSelection}
 						/>
 					</div>
@@ -86,6 +106,7 @@ const DataGraphsContainer = () => {
 							title='Largest U.S Cities By Population'
 							subtitle='Statistics'
 							series={filteredRenderedSeriesData}
+							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
 							zoom={rangePickerSelection}
 						/>
 					</div>

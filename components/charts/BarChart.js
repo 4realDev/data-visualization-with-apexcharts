@@ -2,9 +2,8 @@
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false }) // latency
 import { useEffect } from 'react'
-import { COLORS } from '../../helper/colors'
 
-const BarChart = ({ title, subtitle, series, zoom }) => {
+const BarChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 	useEffect(() => {
 		onZoomX(zoom[0], zoom[1])
 	}, [zoom]) // empty dependencies array means "run this once on first mount"
@@ -28,17 +27,19 @@ const BarChart = ({ title, subtitle, series, zoom }) => {
 		},
 		fill: {
 			// Array of color - possible to give every bar a specific color
-			colors: [
-				COLORS.chartDataBlue,
-				COLORS.chartDataGreen,
-				COLORS.chartDataOrange,
-			],
+			colors: seriesColor,
 		},
 		xaxis: {
 			min: zoom[0],
 			max: zoom[1],
 			hideOverlappingLabels: true, // needed for zooming
 			tickPlacement: 'on', // needed for zooming
+		},
+		legend: {
+			showForSingleSeries: true,
+			markers: {
+				fillColors: seriesColor,
+			},
 		},
 	}
 
@@ -77,13 +78,7 @@ const BarChart = ({ title, subtitle, series, zoom }) => {
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
 		<>
-			<Chart
-				options={options}
-				series={series}
-				type='bar'
-				height='328'
-				width='100%'
-			/>
+			<Chart options={options} series={series} type='bar' height='328' width='100%' />
 		</>
 	)
 }
