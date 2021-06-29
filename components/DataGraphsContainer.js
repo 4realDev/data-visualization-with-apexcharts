@@ -29,25 +29,28 @@ const DataGraphsContainer = () => {
 
 	const userSeriesLoading = useSelector((state) => state.chartData.loading)
 
-	useEffect(() => {
-		if (userSeriesLoading === 'idle') {
-			console.log(userSeriesLoading)
-		} else {
-			console.log(userSeriesLoading)
-		}
-	}, [userSeriesLoading])
-
 	const userSeriesDataSum = filteredRenderedSeriesData.map((serie) => {
 		let total = 0
 		serie.data.forEach((dataSet) => {
 			total = total + dataSet.y
 		})
-		return total
+		return { name: serie.name, sum: total }
 	})
 
-	const musicDataSum = userSeriesLoading === 'idle' ? userSeriesDataSum[0] : 1
-	const photoDataSum = userSeriesLoading === 'idle' ? userSeriesDataSum[1] : 1
-	const fileDataSum = userSeriesLoading === 'idle' ? userSeriesDataSum[2] : 1
+	const musicCircleChartData =
+		userSeriesDataSum && userSeriesDataSum.length > 0
+			? userSeriesDataSum.find((serie) => serie.name === 'Music')
+			: undefined
+
+	const photosCircleChartData =
+		userSeriesDataSum && userSeriesDataSum.length > 0
+			? userSeriesDataSum.find((serie) => serie.name === 'Photos')
+			: undefined
+
+	const filesCircleChartData =
+		userSeriesDataSum && userSeriesDataSum.length > 0
+			? userSeriesDataSum.find((serie) => serie.name === 'Files')
+			: undefined
 
 	return (
 		<div
@@ -68,26 +71,50 @@ const DataGraphsContainer = () => {
 								>
 									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
 										<CircleChart
-											label='Music'
-											serieValue={[musicDataSum]}
+											label={
+												musicCircleChartData
+													? musicCircleChartData.name
+													: ''
+											}
+											serieValue={
+												musicCircleChartData
+													? [musicCircleChartData.sum]
+													: []
+											}
 											maxValue={200}
 											color={COLORS.chartDataBlue}
 										/>
 									</div>
 									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
 										<CircleChart
-											label='Photos'
-											//labels={lineChartDataLabels}
-											serieValue={[photoDataSum]}
+											label={
+												photosCircleChartData
+													? photosCircleChartData.name
+													: ''
+											}
+											serieValue={
+												photosCircleChartData
+													? [
+															photosCircleChartData.sum,
+													  ]
+													: []
+											}
 											maxValue={200}
 											color={COLORS.chartDataGreen}
 										/>
 									</div>
 									<div className='col-span-1 row-span-1 justify-center items-center my-10'>
 										<CircleChart
-											label='Files'
-											//labels={lineChartDataLabels}
-											serieValue={[fileDataSum]}
+											label={
+												filesCircleChartData
+													? filesCircleChartData.name
+													: ''
+											}
+											serieValue={
+												filesCircleChartData
+													? [filesCircleChartData.sum]
+													: []
+											}
 											maxValue={200}
 											color={COLORS.chartDataOrange}
 										/>
