@@ -1,11 +1,12 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
-import dynamic from 'next/dynamic'
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
-import { useState } from 'react'
-import { COLORS } from '../../helper/colors'
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { COLORS } from '../../helper/colors';
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const LineAreaChart = () => {
-	const [options, setOptions] = useState({
+	const [options] = useState({
 		title: { text: 'Largest U.S Cities By Population' },
 		subtitle: { text: 'Statistics' },
 		labels: [
@@ -37,8 +38,8 @@ const LineAreaChart = () => {
 				size: 6,
 			},
 		},
-	})
-	const [series, setSeries] = useState([
+	});
+	const [series] = useState([
 		{
 			name: 'Music',
 			data: [1, 15, 26, 20, 33, 27],
@@ -51,7 +52,7 @@ const LineAreaChart = () => {
 			name: 'Files',
 			data: [0, 39, 52, 11, 29, 43],
 		},
-	])
+	]);
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
@@ -64,7 +65,7 @@ const LineAreaChart = () => {
 				width='100%' // will be defined through flex
 			/>
 		</>
-	)
-}
+	);
+};
 
-export default LineAreaChart
+export default LineAreaChart;

@@ -1,12 +1,28 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
-import dynamic from 'next/dynamic'
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
-import { useEffect } from 'react'
+import dynamic from 'next/dynamic';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const LineChart = ({ title, subtitle, series, seriesColor, zoom }) => {
+	const onZoomX = (start, end) => {
+		if (window.ApexCharts) {
+			// eslint-disable-next-line no-undef
+			ApexCharts.exec('zoomChart', 'updateOptions', {
+				xaxis: {
+					min: start,
+					max: end,
+					hideOverlappingLabels: true,
+					tickPlacement: 'on',
+				},
+			});
+		}
+	};
+
 	useEffect(() => {
-		onZoomX(zoom[0], zoom[1])
-	}, [zoom]) // empty dependencies array means "run this once on first mount"
+		onZoomX(zoom[0], zoom[1]);
+	}, [zoom]); // empty dependencies array means "run this once on first mount"
 
 	const options = {
 		title: { text: title },
@@ -46,20 +62,7 @@ const LineChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 				fillColors: seriesColor,
 			},
 		},
-	}
-
-	const onZoomX = (start, end) => {
-		if (window.ApexCharts) {
-			ApexCharts.exec('zoomChart', 'updateOptions', {
-				xaxis: {
-					min: start,
-					max: end,
-					hideOverlappingLabels: true,
-					tickPlacement: 'on',
-				},
-			})
-		}
-	}
+	};
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
@@ -72,7 +75,15 @@ const LineChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 				width='100%' // will be defined through flex
 			/>
 		</>
-	)
-}
+	);
+};
 
-export default LineChart
+LineChart.propTypes = {
+	title: PropTypes.string.isRequired,
+	subtitle: PropTypes.string.isRequired,
+	series: PropTypes.arrayOf(PropTypes.object).isRequired,
+	seriesColor: PropTypes.arrayOf(PropTypes.string).isRequired,
+	zoom: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default LineChart;

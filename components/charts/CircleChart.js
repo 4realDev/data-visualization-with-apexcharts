@@ -1,6 +1,11 @@
-import dynamic from 'next/dynamic'
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
-import { COLORS } from '../../helper/colors'
+/* eslint-disable no-unused-vars */
+
+import React from 'react';
+import dynamic from 'next/dynamic';
+import PropTypes from 'prop-types';
+import { COLORS } from '../../helper/colors';
+
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 // CircleChart currently only supports no range settings (values will be always related to 100% range)
 const CircleChart = ({ label, serieValue, maxValue, color }) => {
@@ -51,9 +56,7 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 						fontSize: '17px',
 					},
 					value: {
-						formatter: function (val) {
-							return parseInt(val)
-						},
+						formatter: (val) => parseInt(val),
 						color: COLORS.mainLayoutText,
 						fontSize: '36px',
 						show: true,
@@ -113,18 +116,29 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 				fontSize: '14px',
 			},
 		},
-	}
+	};
 
-	const max = maxValue
-	const valueToPercent = (value) => {
-		return (value * 100) / max
-	}
+	const max = maxValue;
+	const valueToPercent = (value) => (value * 100) / max;
 
 	return (
 		<div>
-			<Chart options={options} series={serieValue} type='radialBar' height='250' width='100%' />
+			<Chart
+				options={options}
+				series={serieValue}
+				type='radialBar'
+				height='250'
+				width='100%'
+			/>
 		</div>
-	)
-}
+	);
+};
 
-export default CircleChart
+CircleChart.propTypes = {
+	label: PropTypes.string.isRequired,
+	serieValue: PropTypes.arrayOf(PropTypes.number).isRequired,
+	maxValue: PropTypes.number.isRequired,
+	color: PropTypes.string.isRequired,
+};
+
+export default CircleChart;

@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
-import moment from 'moment'
+import { createSlice } from '@reduxjs/toolkit';
+import moment from 'moment';
 
 export const rangePickerSlice = createSlice({
 	name: 'rangePicker', // called for example with useSelector((state) => state.barChart.series)
@@ -27,11 +27,11 @@ export const rangePickerSlice = createSlice({
 		// which detects changes to a "draft state" and produces a brand new
 		// immutable state based off those changes
 		setRangePickerSelection: (state, action) => {
-			state.selection = action.payload
+			state.selection = action.payload;
 		},
 	},
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { setRangePickerSelection } = rangePickerSlice.actions
-export default rangePickerSlice.reducer
+export const { setRangePickerSelection } = rangePickerSlice.actions;
+export default rangePickerSlice.reducer;

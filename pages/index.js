@@ -1,25 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import DataGraphsContainer from '../components/DataGraphsContainer';
+import DataFiltersContainer from '../components/DataFiltersContainer';
+import { initDefaultCharLayout } from '../components/charts/DefaultLayout';
+import { fetchChartData } from '../redux/features/chartData/chartSlice';
+import { COLORS } from '../helper/colors';
 
-import DataGraphsContainer from '../components/DataGraphsContainer'
-import DataFiltersContainer from '../components/DataFiltersContainer'
-import { initDefaultCharLayout } from '../components/charts/DefaultLayout'
+export default function Home() {
+	const dispatch = useDispatch();
 
-import { useDispatch } from 'react-redux'
-import chartSlice, {
-	fetchChartData,
-} from '../redux/features/chartData/chartSlice'
-
-import { COLORS } from '../helper/colors'
-
-export default function Home({ chartData }) {
-	const dispatch = useDispatch()
-
-	useEffect(function onFirstMount() {
-		initDefaultCharLayout()
-		dispatch(fetchChartData())
-	}, []) // empty dependencies array means "run this once on first mount"
+	useEffect(() => {
+		initDefaultCharLayout();
+		dispatch(fetchChartData());
+	}, []); // empty dependencies array means "run this once on first mount"
 
 	return (
 		<div
@@ -32,5 +25,5 @@ export default function Home({ chartData }) {
 			<DataFiltersContainer />
 			<DataGraphsContainer />
 		</div>
-	)
+	);
 }

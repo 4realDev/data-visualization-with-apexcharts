@@ -4,29 +4,29 @@
 
 @import 'antd/dist/antd.css';
 
-.anticon>svg {
+.anticon > svg {
 	display: block !important;
 	margin: auto !important;
 	height: 100% !important;
 }
 
 .ant-collapse {
-	background: #2B2D3E !important;
+	background: #2b2d3e !important;
 }
 
-.ant-collapse-borderless{
-	background: #2B2D3E !important;
+.ant-collapse-borderless {
+	background: #2b2d3e !important;
 }
 
 .ant-collapse-item {
 	border: none !important;
 }
 
-.ant-collapse-item-active{
+.ant-collapse-item-active {
 	border: none !important;
 }
 
-.ant-collapse-header{
+.ant-collapse-header {
 	color: white !important;
 	font-weight: bold;
 }
@@ -39,12 +39,12 @@
 	padding: 0px !important;
 }
 
-.ant-collapse-content-active{
+.ant-collapse-content-active {
 	padding: 0px !important;
 }
 
 @media (max-width: 560px) {
-	.ant-picker-panels{
+	.ant-picker-panels {
 		flex-direction: column;
 		align-items: center;
 	}
