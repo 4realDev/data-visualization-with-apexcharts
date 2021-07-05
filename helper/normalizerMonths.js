@@ -13,32 +13,24 @@ const arrayInteratorMonths = [
 	'December',
 ]
 
-export const normalizeSeriesDataMonths = (series) => {
+export const normalizeSeriesDataMonths = (series) => 
 	// asynchron -> map
-	return series.map((serie) => {
-		return {
+	 series.map((serie) => ({
 			name: serie.name,
-			data: serie.data.map((dataTuple) => {
-				return {
+			data: serie.data.map((dataTuple) => ({
 					x: parseInt(arrayInteratorMonths.indexOf(dataTuple.x) + 1),
 					y: dataTuple.y,
-				}
-			}),
-		}
-	})
-}
+				})),
+		}))
 
-export const renderSeriesDataMonths = (series) => {
+
+export const renderSeriesDataMonths = (series) => 
 	// asynchron -> map
-	return series.map((serie) => {
-		return {
+	 series.map((serie) => ({
 			name: serie.name,
-			data: serie.data.map((dataTuple) => {
-				return {
+			data: serie.data.map((dataTuple) => ({
 					x: arrayInteratorMonths[dataTuple.x - 1],
 					y: dataTuple.y,
-				}
-			}),
-		}
-	})
-}
+				})),
+		}))
+

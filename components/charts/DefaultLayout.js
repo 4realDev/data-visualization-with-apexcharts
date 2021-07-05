@@ -1,4 +1,4 @@
-import { COLORS } from '../../helper/colors';
+import { COLORS } from '../../helper/colors'
 
 export function initDefaultCharLayout() {
 	window.Apex = {
@@ -40,5 +40,5 @@ export function initDefaultCharLayout() {
 		subtitle: {
 			offsetX: 20,
 		},
-	};
+	}
 }

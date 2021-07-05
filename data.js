@@ -50,4 +50,4 @@ export const chartData = [
 			{ x: 'December', y: 11 },
 		],
 	},
-];
+]

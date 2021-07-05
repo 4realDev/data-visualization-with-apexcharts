@@ -1,5 +1,5 @@
-import { chartData } from '../../../data';
+import { chartData } from '../../../data'
 
 export default function handler(req, res) {
-	res.status(200).json(chartData);
+	res.status(200).json(chartData)
 }

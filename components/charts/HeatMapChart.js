@@ -1,10 +1,10 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
 
-import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
-import { COLORS } from '../../helper/colors';
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+import { COLORS } from '../../helper/colors'
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const HeatMapChart = () => {
 	const [options] = useState({
@@ -55,16 +55,7 @@ const HeatMapChart = () => {
 				},
 			},
 		},
-		labels: [
-			'New York',
-			'Los Angeles',
-			'Chicago',
-			'Houston',
-			'Philadelphia',
-			'Phoenix',
-			'San Antonio',
-			'San Diego',
-		],
+		labels: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Philadelphia', 'Phoenix', 'San Antonio', 'San Diego'],
 		stroke: {
 			show: true,
 			width: 1.5,
@@ -73,7 +64,7 @@ const HeatMapChart = () => {
 		// fill: {
 		// 	opacity: 0.5,
 		// },
-	});
+	})
 
 	const [series] = useState([
 		{
@@ -100,7 +91,7 @@ const HeatMapChart = () => {
 			name: 'Metric5',
 			data: [45, 54, 87, 23, 4, 2, 33, 45],
 		},
-	]);
+	])
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
@@ -113,7 +104,7 @@ const HeatMapChart = () => {
 				width='100%' // will be defined through flex
 			/>
 		</>
-	);
-};
+	)
+}
 
-export default HeatMapChart;
+export default HeatMapChart

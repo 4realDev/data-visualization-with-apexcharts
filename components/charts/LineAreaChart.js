@@ -1,9 +1,9 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
-import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
-import { COLORS } from '../../helper/colors';
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+import { COLORS } from '../../helper/colors'
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const LineAreaChart = () => {
 	const [options] = useState({
@@ -24,11 +24,7 @@ const LineAreaChart = () => {
 		stroke: {
 			show: true,
 			width: 2,
-			colors: [
-				COLORS.chartDataBlue,
-				COLORS.chartDataGreen,
-				COLORS.chartDataOrange,
-			],
+			colors: [COLORS.chartDataBlue, COLORS.chartDataGreen, COLORS.chartDataOrange],
 			curve: 'straight', // smooth / straight / stepline
 		},
 		markers: {
@@ -38,7 +34,7 @@ const LineAreaChart = () => {
 				size: 6,
 			},
 		},
-	});
+	})
 	const [series] = useState([
 		{
 			name: 'Music',
@@ -52,7 +48,7 @@ const LineAreaChart = () => {
 			name: 'Files',
 			data: [0, 39, 52, 11, 29, 43],
 		},
-	]);
+	])
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
@@ -65,7 +61,7 @@ const LineAreaChart = () => {
 				width='100%' // will be defined through flex
 			/>
 		</>
-	);
-};
+	)
+}
 
-export default LineAreaChart;
+export default LineAreaChart

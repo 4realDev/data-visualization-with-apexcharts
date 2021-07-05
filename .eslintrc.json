@@ -8,6 +8,7 @@
         "airbnb",
         "prettier"
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -16,16 +17,48 @@
         "sourceType": "module"
     },
     "plugins": [
-        "prettier", "react"
+        "react", "@typescript-eslint"
     ],
     "rules": {
-        // allow .js extensions for JSX
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        // Don't need to specify extention name in import statement for .js, .jsx, .ts, .tsx
+        // Therefore you can use Test instead of Test.js
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        // we can write jsx code inside the given extensions
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        ],
+        "react/react-in-jsx-scope": 0,
+        "react/prop-types": 0,
         "no-param-reassign": 0,
         "import/prefer-default-export": 0,
         "radix": 0,
         "no-console": 1,
         "react/jsx-props-no-spreading": 0,
         "react/no-array-index-key": 0
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
+                "moduleDirectory": ["node_modules", "src/"]
+            }
+        }
     }
 }

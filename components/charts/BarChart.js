@@ -1,9 +1,9 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
-import dynamic from 'next/dynamic';
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import dynamic from 'next/dynamic'
+import { useEffect } from 'react'
+import PropTypes from 'prop-types'
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false }); // latency
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false }) // latency
 
 const BarChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 	const onZoomX = (start, end) => {
@@ -16,13 +16,13 @@ const BarChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 					hideOverlappingLabels: true,
 					tickPlacement: 'on',
 				},
-			});
+			})
 		}
-	};
+	}
 
 	useEffect(() => {
-		onZoomX(zoom[0], zoom[1]);
-	}, [zoom]); // empty dependencies array means "run this once on first mount"
+		onZoomX(zoom[0], zoom[1])
+	}, [zoom]) // empty dependencies array means "run this once on first mount"
 
 	const options = {
 		title: { text: title },
@@ -57,21 +57,15 @@ const BarChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 				fillColors: seriesColor,
 			},
 		},
-	};
+	}
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
 		<>
-			<Chart
-				options={options}
-				series={series}
-				type='bar'
-				height='328'
-				width='100%'
-			/>
+			<Chart options={options} series={series} type='bar' height='328' width='100%' />
 		</>
-	);
-};
+	)
+}
 
 BarChart.propTypes = {
 	title: PropTypes.string.isRequired,
@@ -79,6 +73,6 @@ BarChart.propTypes = {
 	series: PropTypes.arrayOf(PropTypes.object).isRequired,
 	seriesColor: PropTypes.arrayOf(PropTypes.string).isRequired,
 	zoom: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+}
 
-export default BarChart;
+export default BarChart

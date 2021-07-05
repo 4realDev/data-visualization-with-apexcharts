@@ -1,15 +1,14 @@
-import React from 'react';
-import { Select } from 'antd';
-import PropTypes from 'prop-types';
+import { Select } from 'antd'
+import PropTypes from 'prop-types'
 
-const { Option } = Select;
+const { Option } = Select
 
 export default function AntSelect({ selectOptions, onChange }) {
 	return (
 		<>
 			<Select
 				style={{ width: `${266}px` }}
-				onChange={(value) => onChange(value)}
+				onChange={value => onChange(value)}
 				mode='multiple'
 				placeholder='Select Months'
 				maxTagCount='responsive'
@@ -25,10 +24,10 @@ export default function AntSelect({ selectOptions, onChange }) {
 				))}
 			</Select>
 		</>
-	);
+	)
 }
 
 AntSelect.propTypes = {
 	selectOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
 	onChange: PropTypes.func.isRequired,
-};
+}
