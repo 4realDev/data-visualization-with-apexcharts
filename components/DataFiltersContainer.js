@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { momentSelectionToMMSelection, momentSelectionToYYYYMMSelection, YYYYMMSelectionToMomentSelection } from '../helper/antRangePickerSelectionConverter'
+import { momentSelectionToMonthNumberSelection, YYYYMMSelectionToMonthNumberSelection, momentSelectionToYYYYMMSelection, YYYYMMSelectionToMomentSelection } from '../helper/antRangePickerSelectionConverter'
 import RangePicker from './ant-design/AntRangePicker'
 import { setRangePickerSelection } from '../redux/features/rangePicker/rangePickerSlice'
 import Select from './ant-design/AntSelect'
@@ -17,7 +17,7 @@ const DataFiltersContainer = () => {
 	// handler for AntRangePicker component
 	const handleRangePickerOnChanged = (rangeSelection) => {
 		const rangeFilterSelectionMonthStrings = momentSelectionToYYYYMMSelection(rangeSelection[0], rangeSelection[1])
-		const rangeFilterSelectionMonthNumbers = momentSelectionToMMSelection(rangeSelection[0], rangeSelection[1])
+		const rangeFilterSelectionMonthNumbers = momentSelectionToMonthNumberSelection(rangeSelection[0], rangeSelection[1])
 		dispatch(setRangePickerSelection(rangeFilterSelectionMonthStrings))
 		dispatch(
 			filterNormalizedData({
@@ -29,7 +29,7 @@ const DataFiltersContainer = () => {
 
 	// handler for AntSelect component
 	const handleSelectFilterOnChange = (seriesFilterSelection) => {
-		const rangeFilterSelectionMonthNumbers = momentSelectionToMMSelection(rangePickerSelection[0], rangePickerSelection[1])
+		const rangeFilterSelectionMonthNumbers = YYYYMMSelectionToMonthNumberSelection(rangePickerSelection[0], rangePickerSelection[1])
 		dispatch(setSelectFilterSelection(seriesFilterSelection))
 		dispatch(
 			filterNormalizedData({

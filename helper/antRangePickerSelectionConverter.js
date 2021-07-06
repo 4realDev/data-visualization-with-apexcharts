@@ -1,9 +1,15 @@
 import moment from "moment"
 
 // convert moment object to 02
-export const momentSelectionToMMSelection = (startSelection, endSelection) => {
-    const MMSelection = [parseInt(startSelection.format('M MM') + 1), parseInt(endSelection.format('M MM') + 1)]
-    return MMSelection
+export const momentSelectionToMonthNumberSelection = (startSelection, endSelection) => {
+    const monthNumberSelection = [parseInt(startSelection.format('M MM') + 1), parseInt(endSelection.format('M MM') + 1)]
+    return monthNumberSelection
+}
+
+// convert "2021-02" to 02
+export const YYYYMMSelectionToMonthNumberSelection = (startSelection, endSelection) => {
+    const monthNumberSelection = [startSelection.split('-')[1], endSelection.split('-')[1]]
+    return monthNumberSelection
 }
 
 // convert "2021-02" to moment object (needed for AntSelect)
