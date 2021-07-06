@@ -68,6 +68,26 @@ const HeatMapChart = ({ title, subtitle }: HeatMapChartProps) => {
 		// fill: {
 		// 	opacity: 0.5,
 		// },
+
+		responsive: [
+			{
+				breakpoint: 600,
+				options: {
+					legend: {
+						fontSize: '12px',
+						offsetY: -6,
+						markers: {
+							width: 12,
+							height: 12,
+						},
+						itemMargin: {
+							horizontal: 3,
+							vertical: 3,
+						},
+					},
+				},
+			},
+		],
 	}
 
 	const series = [
