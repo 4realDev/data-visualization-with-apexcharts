@@ -1,39 +1,43 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
 import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
-import PropTypes from 'prop-types'
+import { ApexChartSerie } from 'shared/types'
+import { ApexOptions } from 'apexcharts'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false }) // latency
 
-const BarChart = ({ title, subtitle, series, seriesColor, zoom }) => {
-	const onZoomX = (start, end) => {
-		if (window.ApexCharts) {
+type BarChartProps = {
+	title?: string
+	subtitle?: string
+	series: ApexChartSerie[]
+	seriesColor?: string[]
+	zoom?: any
+}
+
+const BarChart = ({ title, subtitle, series, seriesColor, zoom }: BarChartProps) => {
+	const onZoomX = (start: any, end: any) => {
+		if (window.Apex) {
 			// eslint-disable-next-line no-undef
 			ApexCharts.exec('zoomChart', 'updateOptions', {
 				xaxis: {
 					min: start,
 					max: end,
-					hideOverlappingLabels: true,
-					tickPlacement: 'on',
 				},
 			})
 		}
 	}
 
 	useEffect(() => {
+		if (zoom === undefined) return
 		onZoomX(zoom[0], zoom[1])
 	}, [zoom]) // empty dependencies array means "run this once on first mount"
 
-	const options = {
+	const options: ApexOptions = {
 		title: { text: title },
 		subtitle: { text: subtitle },
 		// Necessary to stack multiple series of data on one category
 		chart: {
-			id: 'zoomChart',
 			stacked: true,
-			zoom: {
-				enable: true,
-			},
 		},
 		plotOptions: {
 			bar: {
@@ -46,10 +50,8 @@ const BarChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 			colors: seriesColor,
 		},
 		xaxis: {
-			min: zoom[0],
-			max: zoom[1],
-			hideOverlappingLabels: true, // needed for zooming
-			tickPlacement: 'on', // needed for zooming
+			min: zoom ? zoom[0] : undefined,
+			max: zoom ? zoom[1] : undefined,
 		},
 		legend: {
 			showForSingleSeries: true,
@@ -62,17 +64,23 @@ const BarChart = ({ title, subtitle, series, seriesColor, zoom }) => {
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
 		<>
-			<Chart options={options} series={series} type='bar' height='328' width='100%' />
+			{/* prettier-ignore */}
+			<Chart 
+				options={options} 
+				series={series} 
+				type='bar' 
+				height='328' 
+				width='100%' 
+			/>
 		</>
 	)
 }
 
-BarChart.propTypes = {
-	title: PropTypes.string.isRequired,
-	subtitle: PropTypes.string.isRequired,
-	series: PropTypes.arrayOf(PropTypes.object).isRequired,
-	seriesColor: PropTypes.arrayOf(PropTypes.string).isRequired,
-	zoom: PropTypes.arrayOf(PropTypes.object).isRequired,
+BarChart.defaultProps = {
+	title: undefined,
+	subtitle: undefined,
+	seriesColor: undefined,
+	zoom: undefined,
 }
 
 export default BarChart

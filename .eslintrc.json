@@ -51,6 +51,7 @@
         "radix": 0,
         "no-console": 1,
         "react/jsx-props-no-spreading": 0,
+        "react/jsx-boolean-value": 0,
         "react/no-array-index-key": 0
     },
     "settings": {

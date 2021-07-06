@@ -1,30 +1,10 @@
 /* eslint-disable no-use-before-define */
 
+import { ApexChartSerie, NormalizedApexChartSerie } from 'shared/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppDispatch } from 'redux/store'
-import { server } from '../../../config/config'
-import { normalizeSeriesDataMonths } from '../../../helper/normalizerMonths'
-
-type ApexChartSerie = {
-	name: string
-	data: {
-		x: string
-		y: number
-	}[]
-}
-
-type NormalizedApexChartSerie = {
-	name: string
-	data: {
-		x: number
-		y: number
-	}[]
-}
-
-type FilterData = {
-	rangeSelection: number[]
-	seriesSelection: string[]
-}
+import { server } from 'config/config'
+import { normalizeSeriesDataMonths } from 'helper/normalizerMonths'
 
 interface ChartDataState {
 	loading: string

@@ -1,21 +1,29 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { momentSelectionToMonthNumberSelection, YYYYMMSelectionToMonthNumberSelection, momentSelectionToYYYYMMSelection, YYYYMMSelectionToMomentSelection } from '../helper/antRangePickerSelectionConverter'
+import { useAppSelector, useAppDispatch } from 'redux/hooks'
+import { Moment } from 'moment'
+import { RangeValue } from 'rc-picker/lib/interface'
+import {
+	momentSelectionToMonthNumberSelection,
+	YYYYMMSelectionToMonthNumberSelection,
+	momentSelectionToYYYYMMSelection,
+	YYYYMMSelectionToMomentSelection,
+} from '../helper/antRangePickerSelectionConverter'
 import RangePicker from './ant-design/AntRangePicker'
 import { setRangePickerSelection } from '../redux/features/rangePicker/rangePickerSlice'
 import Select from './ant-design/AntSelect'
 import { setSelectFilterSelection } from '../redux/features/selectFilter/selectFilterSlice'
 import { filterNormalizedSeries } from '../redux/features/chartData/chartSlice'
-import { COLORS } from '../helper/colors'
+import { COLORS } from '../shared/colors'
 
 const DataFiltersContainer = () => {
-	const dispatch = useDispatch()
-	const rangePickerSelection = useSelector(state => state.rangePicker.selection)
-	const rangePickerEnabledValues = useSelector(state => state.rangePicker.enabledValues)
-	const selectFilterInitialSelection = useSelector(state => state.selectFilter.initialSelection)
-	const selectFilterSelection = useSelector(state => state.selectFilter.selection)
+	const dispatch = useAppDispatch()
+	const rangePickerSelection = useAppSelector(state => state.rangePicker.selection)
+	const rangePickerEnabledValues = useAppSelector(state => state.rangePicker.enabledValues)
+	const selectFilterInitialSelection = useAppSelector(state => state.selectFilter.initialSelection)
+	const selectFilterSelection = useAppSelector(state => state.selectFilter.selection)
 
 	// handler for AntRangePicker component
-	const handleRangePickerOnChanged = (rangeSelection) => {
+	const handleRangePickerOnChanged = (rangeSelection: RangeValue<Moment>) => {
+		if (rangeSelection === null) return
 		const rangeFilterSelectionMonthStrings = momentSelectionToYYYYMMSelection(rangeSelection[0], rangeSelection[1])
 		const rangeFilterSelectionMonthNumbers = momentSelectionToMonthNumberSelection(rangeSelection[0], rangeSelection[1])
 		dispatch(setRangePickerSelection(rangeFilterSelectionMonthStrings))
@@ -28,8 +36,11 @@ const DataFiltersContainer = () => {
 	}
 
 	// handler for AntSelect component
-	const handleSelectFilterOnChange = (seriesFilterSelection) => {
-		const rangeFilterSelectionMonthNumbers = YYYYMMSelectionToMonthNumberSelection(rangePickerSelection[0], rangePickerSelection[1])
+	const handleSelectFilterOnChange = (seriesFilterSelection: string[]) => {
+		const rangeFilterSelectionMonthNumbers = YYYYMMSelectionToMonthNumberSelection(
+			rangePickerSelection[0],
+			rangePickerSelection[1],
+		)
 		dispatch(setSelectFilterSelection(seriesFilterSelection))
 		dispatch(
 			filterNormalizedSeries({
@@ -51,7 +62,11 @@ const DataFiltersContainer = () => {
 			</div>
 			<div>
 				<h3 className='text-white text-left text-sm font-bold'>SERIES SELECTION</h3>
-				<Select selectOptions={selectFilterInitialSelection} onChange={handleSelectFilterOnChange} />
+				{/* prettier-ignore */}
+				<Select 
+					selectOptions={selectFilterInitialSelection} 
+					onChange={handleSelectFilterOnChange} 
+				/>
 			</div>
 		</div>
 	)

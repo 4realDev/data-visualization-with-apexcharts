@@ -1,12 +1,20 @@
-import PropTypes from 'prop-types'
+import { Moment } from 'moment'
 import { DatePicker } from 'antd'
+import { RangeValue } from 'rc-picker/lib/interface'
 
 const { RangePicker } = DatePicker
 
-const AntRangePicker = ({ selectedValues, enabledValues, onChange }) => {
-	const dates = []
+type AntRangePickerProps = {
+	selectedValues: [Moment, Moment]
+	enabledValues: string[]
+	// eslint-disable-next-line no-unused-vars
+	onChange: (value: RangeValue<Moment>) => void
+}
+
+const AntRangePicker = ({ selectedValues, enabledValues, onChange }: AntRangePickerProps) => {
+	const dates: Moment[] = []
 	// called for every picker-cell (x24 for months)
-	const disabledDate = current => {
+	const disabledDate = (current: Moment): boolean => {
 		const nothingSelected = !dates || dates.length === 0
 
 		// triggered when nothing is selected
@@ -15,7 +23,7 @@ const AntRangePicker = ({ selectedValues, enabledValues, onChange }) => {
 			return !enabledValues.includes(current.format('YYYY-MM'))
 		}
 
-		return []
+		return false
 
 		// Get difference between current date and first selection
 		// If difference is bigger then 7, the current date is already too late
@@ -31,17 +39,11 @@ const AntRangePicker = ({ selectedValues, enabledValues, onChange }) => {
 				allowClear={false}
 				defaultValue={selectedValues}
 				defaultPickerValue={selectedValues}
-				disabledDate={current => disabledDate(current)}
-				onChange={val => onChange(val)}
+				disabledDate={(current: Moment) => disabledDate(current)}
+				onChange={(values: RangeValue<Moment>) => onChange(values)}
 			/>
 		</div>
 	)
-}
-
-AntRangePicker.propTypes = {
-	selectedValues: PropTypes.arrayOf(PropTypes.object).isRequired,
-	enabledValues: PropTypes.arrayOf(PropTypes.string).isRequired,
-	onChange: PropTypes.func.isRequired,
 }
 
 export default AntRangePicker

@@ -1,15 +1,20 @@
 /* eslint-disable no-unused-vars */
+import dynamic from 'next/dynamic'
+import { COLORS } from 'shared/colors'
+import ApexCharts from 'apexcharts'
 
-import React from 'react';
-import dynamic from 'next/dynamic';
-import PropTypes from 'prop-types';
-import { COLORS } from '../../helper/colors';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+type CircleProps = {
+	label: string
+	serieValue: number[]
+	maxValue: number
+	color: string
+}
 
 // CircleChart currently only supports no range settings (values will be always related to 100% range)
-const CircleChart = ({ label, serieValue, maxValue, color }) => {
-	const options = {
+const CircleChart = ({ label, serieValue, maxValue, color }: CircleProps) => {
+	const options: ApexCharts.ApexOptions = {
 		chart: {
 			type: 'radialBar',
 			background: undefined,
@@ -56,7 +61,7 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 						fontSize: '17px',
 					},
 					value: {
-						formatter: (val) => parseInt(val),
+						formatter: val => val.toString(),
 						color: COLORS.mainLayoutText,
 						fontSize: '36px',
 						show: true,
@@ -116,29 +121,16 @@ const CircleChart = ({ label, serieValue, maxValue, color }) => {
 				fontSize: '14px',
 			},
 		},
-	};
+	}
 
-	const max = maxValue;
-	const valueToPercent = (value) => (value * 100) / max;
+	const max = maxValue
+	const valueToPercent = (value: number): number => (value * 100) / max
 
 	return (
 		<div>
-			<Chart
-				options={options}
-				series={serieValue}
-				type='radialBar'
-				height='250'
-				width='100%'
-			/>
+			<Chart options={options} series={serieValue} type='radialBar' height='250' width='100%' />
 		</div>
-	);
-};
+	)
+}
 
-CircleChart.propTypes = {
-	label: PropTypes.string.isRequired,
-	serieValue: PropTypes.arrayOf(PropTypes.number).isRequired,
-	maxValue: PropTypes.number.isRequired,
-	color: PropTypes.string.isRequired,
-};
-
-export default CircleChart;
+export default CircleChart

@@ -4,7 +4,7 @@ import DataGraphsContainer from '../components/DataGraphsContainer'
 import DataFiltersContainer from '../components/DataFiltersContainer'
 import { initDefaultCharLayout } from '../components/charts/DefaultLayout'
 import { fetchChartData } from '../redux/features/chartData/chartSlice'
-import { COLORS } from '../helper/colors'
+import { COLORS } from '../shared/colors'
 
 export default function Home() {
 	const dispatch = useAppDispatch()

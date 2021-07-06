@@ -1,4 +1,12 @@
-import { COLORS } from '../../helper/colors'
+import { ApexOptions } from 'apexcharts'
+import { COLORS } from 'shared/colors'
+
+declare global {
+	// eslint-disable-next-line no-unused-vars
+	interface Window {
+		Apex: ApexOptions
+	}
+}
 
 export function initDefaultCharLayout() {
 	window.Apex = {
@@ -30,15 +38,16 @@ export function initDefaultCharLayout() {
 		legend: {
 			position: 'top',
 			horizontalAlign: 'right',
-			offsetY: -20,
+			itemMargin: {
+				vertical: 20,
+			},
 		},
 		title: {
 			align: 'left',
-			margin: 20,
-			offsetX: 20,
+			offsetY: 20,
 		},
 		subtitle: {
-			offsetX: 20,
+			offsetY: 40,
 		},
-	}
+	} as ApexOptions
 }

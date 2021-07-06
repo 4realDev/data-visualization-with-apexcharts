@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux'
+import { ApexChartSerie, NormalizedApexChartSerie } from 'shared/types'
+import { useAppSelector } from 'redux/hooks'
 import { Collapse } from 'antd'
 import BarChart from './charts/BarChart'
 import LineChart from './charts/LineChart'
@@ -6,14 +7,14 @@ import CircleChart from './charts/CircleChart'
 import LineAreaChart from './charts/LineAreaChart'
 import HeatMapChart from './charts/HeatMapChart'
 import { renderSeriesDataMonths } from '../helper/normalizerMonths'
-import { COLORS } from '../helper/colors'
+import { COLORS } from '../shared/colors'
 
 const { Panel } = Collapse
 
 const DataGraphsContainer = () => {
-	const rangePickerSelection = useSelector(state => state.rangePicker.selection)
+	const rangePickerSelection: [string, string] = useAppSelector(state => state.rangePicker.selection)
 
-	const filteredNormalizedSeriesData = useSelector(state => state.chartData.filteredNormalizedSeries)
+	const filteredNormalizedSeriesData = useAppSelector(state => state.chartData.filteredNormalizedSeries)
 
 	const filteredRenderedSeriesData = renderSeriesDataMonths(filteredNormalizedSeriesData)
 
@@ -25,9 +26,9 @@ const DataGraphsContainer = () => {
 		return { name: serie.name, sum: total }
 	})
 
-	const getSeriesColor = series => {
+	const getSeriesColor = (series: ApexChartSerie[] | NormalizedApexChartSerie[]): string[] | undefined => {
 		if (series === undefined) return
-		const seriesColorArray = []
+		const seriesColorArray: string[] = []
 		series.forEach(serie => {
 			switch (serie.name) {
 				case 'Music':
@@ -40,6 +41,7 @@ const DataGraphsContainer = () => {
 					seriesColorArray.push(COLORS.chartDataOrange)
 					break
 				default:
+					// eslint-disable-next-line no-console
 					console.warn(`Serie name ${serie.name} is not available in data`)
 			}
 		})
@@ -94,8 +96,8 @@ const DataGraphsContainer = () => {
 					</div>
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<LineChart
-							title='Largest U.S Cities By Population'
-							subtitle='Statistics'
+							title='Line Chart with Random Data over the Year'
+							subtitle='ApexCharts Line Chart'
 							series={filteredRenderedSeriesData}
 							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
 							zoom={rangePickerSelection}
@@ -103,18 +105,24 @@ const DataGraphsContainer = () => {
 					</div>
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<BarChart
-							title='Largest U.S Cities By Population'
-							subtitle='Statistics'
+							title='Bar Chart with Random Data over the Year'
+							subtitle='ApexCharts Bar Chart'
 							series={filteredRenderedSeriesData}
 							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
 							zoom={rangePickerSelection}
 						/>
 					</div>
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
-						<LineAreaChart />
+						<LineAreaChart
+							title='Area Chart with Random Data over the Year'
+							subtitle='ApexCharts Area Chart'
+							series={filteredRenderedSeriesData}
+							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
+							zoom={rangePickerSelection}
+						/>
 					</div>
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
-						<HeatMapChart />
+						<HeatMapChart title='W.I.P.' subtitle='ApexCharts HeatMap Chart' />
 					</div>
 				</div>
 			</div>

@@ -1,9 +1,14 @@
 import { Select } from 'antd'
-import PropTypes from 'prop-types'
 
 const { Option } = Select
 
-export default function AntSelect({ selectOptions, onChange }) {
+type AntSelectProps = {
+	selectOptions: string[]
+	// eslint-disable-next-line no-unused-vars
+	onChange: (value: string[]) => void
+}
+
+export default function AntSelect({ selectOptions, onChange }: AntSelectProps) {
 	return (
 		<>
 			<Select
@@ -13,8 +18,8 @@ export default function AntSelect({ selectOptions, onChange }) {
 				placeholder='Select Months'
 				maxTagCount='responsive'
 				defaultValue={selectOptions}
-				showArrow='true'
-				allowClear='false'
+				showArrow={true}
+				allowClear={false}
 			>
 				{selectOptions.map((option, index) => (
 					// eslint-disable-next-line react/no-array-index-key
@@ -25,9 +30,4 @@ export default function AntSelect({ selectOptions, onChange }) {
 			</Select>
 		</>
 	)
-}
-
-AntSelect.propTypes = {
-	selectOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
-	onChange: PropTypes.func.isRequired,
 }

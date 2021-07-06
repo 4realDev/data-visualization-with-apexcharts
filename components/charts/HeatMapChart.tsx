@@ -1,15 +1,19 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
 
-import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import { COLORS } from '../../helper/colors'
+import { COLORS } from 'shared/colors'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const HeatMapChart = () => {
-	const [options] = useState({
-		title: { text: 'Random Data HeatMap' },
-		subtitle: { text: 'Single Color' },
+type HeatMapChartProps = {
+	title?: string
+	subtitle?: string
+}
+
+const HeatMapChart = ({ title, subtitle }: HeatMapChartProps) => {
+	const options = {
+		title: { text: title },
+		subtitle: { text: subtitle },
 		plotOptions: {
 			heatmap: {
 				// useFillColorAsStroke: true,
@@ -64,9 +68,9 @@ const HeatMapChart = () => {
 		// fill: {
 		// 	opacity: 0.5,
 		// },
-	})
+	}
 
-	const [series] = useState([
+	const series = [
 		{
 			name: 'Metric1',
 			data: [12, 12, 4, 2, 64, 2, 4, 7],
@@ -91,7 +95,7 @@ const HeatMapChart = () => {
 			name: 'Metric5',
 			data: [45, 54, 87, 23, 4, 2, 33, 45],
 		},
-	])
+	]
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
@@ -105,6 +109,11 @@ const HeatMapChart = () => {
 			/>
 		</>
 	)
+}
+
+HeatMapChart.defaultProps = {
+	title: undefined,
+	subtitle: undefined,
 }
 
 export default HeatMapChart
