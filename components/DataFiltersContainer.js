@@ -4,7 +4,7 @@ import RangePicker from './ant-design/AntRangePicker'
 import { setRangePickerSelection } from '../redux/features/rangePicker/rangePickerSlice'
 import Select from './ant-design/AntSelect'
 import { setSelectFilterSelection } from '../redux/features/selectFilter/selectFilterSlice'
-import { filterNormalizedData } from '../redux/features/chartData/chartSlice'
+import { filterNormalizedSeries } from '../redux/features/chartData/chartSlice'
 import { COLORS } from '../helper/colors'
 
 const DataFiltersContainer = () => {
@@ -20,7 +20,7 @@ const DataFiltersContainer = () => {
 		const rangeFilterSelectionMonthNumbers = momentSelectionToMonthNumberSelection(rangeSelection[0], rangeSelection[1])
 		dispatch(setRangePickerSelection(rangeFilterSelectionMonthStrings))
 		dispatch(
-			filterNormalizedData({
+			filterNormalizedSeries({
 				rangeSelection: rangeFilterSelectionMonthNumbers,
 				seriesSelection: selectFilterSelection,
 			}),
@@ -32,7 +32,7 @@ const DataFiltersContainer = () => {
 		const rangeFilterSelectionMonthNumbers = YYYYMMSelectionToMonthNumberSelection(rangePickerSelection[0], rangePickerSelection[1])
 		dispatch(setSelectFilterSelection(seriesFilterSelection))
 		dispatch(
-			filterNormalizedData({
+			filterNormalizedSeries({
 				rangeSelection: rangeFilterSelectionMonthNumbers,
 				seriesSelection: seriesFilterSelection,
 			}),
