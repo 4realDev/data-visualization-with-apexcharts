@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useAppDispatch } from 'redux/hooks'
 import DataGraphsContainer from '../components/DataGraphsContainer'
 import DataFiltersContainer from '../components/DataFiltersContainer'
 import { initDefaultCharLayout } from '../components/charts/DefaultLayout'
@@ -7,7 +7,7 @@ import { fetchChartData } from '../redux/features/chartData/chartSlice'
 import { COLORS } from '../helper/colors'
 
 export default function Home() {
-	const dispatch = useDispatch()
+	const dispatch = useAppDispatch()
 
 	useEffect(() => {
 		initDefaultCharLayout()
