@@ -1,18 +1,48 @@
 /* eslint-disable no-use-before-define */
 
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AppDispatch } from 'redux/store'
 import { server } from '../../../config/config'
 import { normalizeSeriesDataMonths } from '../../../helper/normalizerMonths'
 
+type ApexChartSerie = {
+	name: string
+	data: {
+		x: string
+		y: number
+	}[]
+}
+
+type NormalizedApexChartSerie = {
+	name: string
+	data: {
+		x: number
+		y: number
+	}[]
+}
+
+type FilterData = {
+	rangeSelection: number[]
+	seriesSelection: string[]
+}
+
+interface ChartDataState {
+	loading: string
+	series: ApexChartSerie[]
+	normalizedSeries: NormalizedApexChartSerie[]
+	filteredNormalizedSeries: NormalizedApexChartSerie[]
+}
+
+const initialState: ChartDataState = {
+	loading: 'idle',
+	series: [],
+	normalizedSeries: [],
+	filteredNormalizedSeries: [],
+}
+
 export const chartSlice = createSlice({
 	name: 'chartData', // called for example with useSelector((state) => state.chartData.series)
-	initialState: {
-		loading: 'idle',
-		series: [],
-		normalizedSeries: [],
-		filteredNormalizedSeries: [],
-	},
-
+	initialState,
 	reducers: {
 		// Redux Toolkit allows us to write "mutating" logic in reducers. It
 		// doesn't actually mutate the state because it uses the Immer library,
@@ -32,21 +62,21 @@ export const chartSlice = createSlice({
 			}
 		},
 
-		setFetchedSeries: (state, action) => {
+		setFetchedSeries: (state, action: PayloadAction<ApexChartSerie[]>) => {
 			state.series = action.payload
 		},
 
-		setNormalizedSeries: (state, action) => {
+		setNormalizedSeries: (state, action: PayloadAction<NormalizedApexChartSerie[]>) => {
 			state.normalizedSeries = normalizeSeriesDataMonths(action.payload)
 			state.filteredNormalizedSeries = state.normalizedSeries
 		},
 
-		filterNormalizedData: (state, action) => {
-			const normalizedSeriesFilteredBySerieAndMonthSelection = state.normalizedSeries
+		filterNormalizedSeries: (state, action: PayloadAction<FilterData>) => {
+			const normalizedSeriesFilteredBySerieAndMonthSelection: NormalizedApexChartSerie[] = state.normalizedSeries
 				.filter(serie => action.payload.seriesSelection.includes(serie.name))
 				.map(serie => ({
 					name: serie.name,
-					data: serie.data.reduce((filtered, dataTuple) => {
+					data: serie.data.reduce((filtered: any, dataTuple) => {
 						if (dataTuple.x >= action.payload.rangeSelection[0] && dataTuple.x <= action.payload.rangeSelection[1])
 							filtered.push(dataTuple)
 						return filtered
@@ -58,7 +88,7 @@ export const chartSlice = createSlice({
 	},
 })
 
-export const fetchChartData = () => async dispatch => {
+export const fetchChartData = () => async (dispatch: AppDispatch) => {
 	dispatch(usersLoading())
 	const resChartData = await fetch(`${server}/api/chartData`)
 	const chartData = await resChartData.json()
@@ -68,6 +98,6 @@ export const fetchChartData = () => async dispatch => {
 }
 
 // Action creators are generated for each case reducer function
-export const { usersLoading, usersReceived, setFetchedSeries, setNormalizedSeries, filterNormalizedData } =
+export const { usersLoading, usersReceived, setFetchedSeries, setNormalizedSeries, filterNormalizedSeries } =
 	chartSlice.actions
 export default chartSlice.reducer

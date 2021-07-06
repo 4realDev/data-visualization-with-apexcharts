@@ -1,10 +1,11 @@
 import '../styles/globals.css'
 import 'antd/dist/antd.css'
+import { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
-import store from '../redux/store'
+import { store } from '../redux/store'
 
 // eslint-disable-next-line react/prop-types
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<Provider store={store}>
 			<Component {...pageProps} />

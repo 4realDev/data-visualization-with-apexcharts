@@ -1,31 +1,37 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+interface RangePickerState {
+	selection: [string, string]
+	enabledValues: string[]
+}
+
+const initialState: RangePickerState = {
+	selection: ['2021-01', '2021-12'],
+	enabledValues: [
+		'2021-01',
+		'2021-02',
+		'2021-03',
+		'2021-04',
+		'2021-05',
+		'2021-06',
+		'2021-07',
+		'2021-08',
+		'2021-09',
+		'2021-10',
+		'2021-11',
+		'2021-12',
+	],
+}
 
 export const rangePickerSlice = createSlice({
 	name: 'rangePicker', // called for example with useSelector((state) => state.barChart.series)
-	initialState: {
-		selection: ['2021-01', '2021-12'],
-		enabledValues: [
-			'2021-01',
-			'2021-02',
-			'2021-03',
-			'2021-04',
-			'2021-05',
-			'2021-06',
-			'2021-07',
-			'2021-08',
-			'2021-09',
-			'2021-10',
-			'2021-11',
-			'2021-12',
-		],
-	},
-
+	initialState,
 	reducers: {
 		// Redux Toolkit allows us to write "mutating" logic in reducers. It
 		// doesn't actually mutate the state because it uses the Immer library,
 		// which detects changes to a "draft state" and produces a brand new
 		// immutable state based off those changes
-		setRangePickerSelection: (state, action) => {
+		setRangePickerSelection: (state, action: PayloadAction<[string, string]>) => {
 			state.selection = action.payload
 		},
 	},
