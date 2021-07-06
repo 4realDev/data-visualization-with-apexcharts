@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import moment from 'moment'
 
 export const rangePickerSlice = createSlice({
 	name: 'rangePicker', // called for example with useSelector((state) => state.barChart.series)
 	initialState: {
-		selection: [moment('2021-01', 'YYYY-MM'), moment('2021-12', 'YYYY-MM')],
+		selection: ['2021-01', '2021-12'],
 		enabledValues: [
 			'2021-01',
 			'2021-02',

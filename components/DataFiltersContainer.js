@@ -1,42 +1,39 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { momentSelectionToMMSelection, momentSelectionToYYYYMMSelection, YYYYMMSelectionToMomentSelection } from '../helper/antRangePickerSelectionConverter'
 import RangePicker from './ant-design/AntRangePicker'
 import { setRangePickerSelection } from '../redux/features/rangePicker/rangePickerSlice'
+import Select from './ant-design/AntSelect'
 import { setSelectFilterSelection } from '../redux/features/selectFilter/selectFilterSlice'
 import { filterNormalizedData } from '../redux/features/chartData/chartSlice'
-import Select from './ant-design/AntSelect'
 import { COLORS } from '../helper/colors'
 
 const DataFiltersContainer = () => {
 	const dispatch = useDispatch()
 	const rangePickerSelection = useSelector(state => state.rangePicker.selection)
-
 	const rangePickerEnabledValues = useSelector(state => state.rangePicker.enabledValues)
-
 	const selectFilterInitialSelection = useSelector(state => state.selectFilter.initialSelection)
-
 	const selectFilterSelection = useSelector(state => state.selectFilter.selection)
 
-	const handleRangePickerOnChanged = rangeSelection => {
-		const rangeFilterSelectionMonths = rangeSelection.map(
-			selection => parseInt(selection.month() + 1), // convert "Mon Feb 01 2021" to "02"
-		)
-		dispatch(setRangePickerSelection(rangeSelection))
+	// handler for AntRangePicker component
+	const handleRangePickerOnChanged = (rangeSelection) => {
+		const rangeFilterSelectionMonthStrings = momentSelectionToYYYYMMSelection(rangeSelection[0], rangeSelection[1])
+		const rangeFilterSelectionMonthNumbers = momentSelectionToMMSelection(rangeSelection[0], rangeSelection[1])
+		dispatch(setRangePickerSelection(rangeFilterSelectionMonthStrings))
 		dispatch(
 			filterNormalizedData({
-				rangeSelection: rangeFilterSelectionMonths,
+				rangeSelection: rangeFilterSelectionMonthNumbers,
 				seriesSelection: selectFilterSelection,
 			}),
 		)
 	}
 
-	const handleSelectFilterOnChange = seriesFilterSelection => {
-		const rangeFilterSelectionMonths = rangePickerSelection.map(
-			selection => parseInt(selection.month() + 1), // convert "Mon Feb 01 2021" to "02"
-		)
+	// handler for AntSelect component
+	const handleSelectFilterOnChange = (seriesFilterSelection) => {
+		const rangeFilterSelectionMonthNumbers = momentSelectionToMMSelection(rangePickerSelection[0], rangePickerSelection[1])
 		dispatch(setSelectFilterSelection(seriesFilterSelection))
 		dispatch(
 			filterNormalizedData({
-				rangeSelection: rangeFilterSelectionMonths,
+				rangeSelection: rangeFilterSelectionMonthNumbers,
 				seriesSelection: seriesFilterSelection,
 			}),
 		)
@@ -47,7 +44,7 @@ const DataFiltersContainer = () => {
 			<div>
 				<h3 className='text-white text-left text-sm font-bold'>MONTH RANGE SELECTION</h3>
 				<RangePicker
-					selectedValues={rangePickerSelection}
+					selectedValues={YYYYMMSelectionToMomentSelection(rangePickerSelection[0], rangePickerSelection[1])}
 					enabledValues={rangePickerEnabledValues}
 					onChange={handleRangePickerOnChanged}
 				/>
