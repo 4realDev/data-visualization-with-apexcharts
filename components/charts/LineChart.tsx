@@ -59,6 +59,12 @@ const LineChart = ({ title, subtitle, series, seriesColor, zoom }: LineChartProp
 				size: 9,
 			},
 		},
+		tooltip: {
+			marker: {
+				show: true,
+				fillColors: seriesColor,
+			},
+		},
 		xaxis: {
 			min: zoom ? zoom[0] : undefined,
 			max: zoom ? zoom[1] : undefined,

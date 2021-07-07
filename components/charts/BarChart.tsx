@@ -49,6 +49,12 @@ const BarChart = ({ title, subtitle, series, seriesColor, zoom }: BarChartProps)
 			// Array of color - possible to give every bar a specific color
 			colors: seriesColor,
 		},
+		tooltip: {
+			marker: {
+				show: true,
+				fillColors: seriesColor,
+			},
+		},
 		xaxis: {
 			min: zoom ? zoom[0] : undefined,
 			max: zoom ? zoom[1] : undefined,

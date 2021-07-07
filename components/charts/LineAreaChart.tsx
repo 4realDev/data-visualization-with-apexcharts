@@ -59,6 +59,7 @@ const LineAreaChart = ({ title, subtitle, series, seriesColor, zoom }: LineAreaC
 		markers: {
 			size: 0,
 			strokeWidth: 0, // stroke around marker
+			colors: seriesColor,
 			hover: {
 				size: 6,
 			},
@@ -66,6 +67,12 @@ const LineAreaChart = ({ title, subtitle, series, seriesColor, zoom }: LineAreaC
 		xaxis: {
 			min: zoom ? zoom[0] : undefined,
 			max: zoom ? zoom[1] : undefined,
+		},
+		tooltip: {
+			marker: {
+				show: true,
+				fillColors: seriesColor,
+			},
 		},
 		legend: {
 			showForSingleSeries: true,
