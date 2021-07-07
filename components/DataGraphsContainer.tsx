@@ -1,6 +1,7 @@
 import { ApexChartSerie, NormalizedApexChartSerie } from 'shared/types'
 import { useAppSelector } from 'redux/hooks'
 import { Collapse } from 'antd'
+import AntTable from './ant-design/AntTable'
 import BarChart from './charts/BarChart'
 import LineChart from './charts/LineChart'
 import CircleChart from './charts/CircleChart'
@@ -94,6 +95,7 @@ const DataGraphsContainer = () => {
 							</Panel>
 						</Collapse>
 					</div>
+
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<LineChart
 							title='Line Chart with Random Data over the Year'
@@ -123,6 +125,16 @@ const DataGraphsContainer = () => {
 					</div>
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
 						<HeatMapChart title='W.I.P.' subtitle='ApexCharts HeatMap Chart' />
+					</div>
+
+					<div className='col-span-6 row-span-1 my-4'>
+						<Collapse bordered={false} defaultActiveKey={['1']}>
+							<Panel header='DATA TABLE' key='1'>
+								<div className='lg:col-span-6 md:col-span-6 sm:col-span-6 col-span-6  row-span-1 p-10'>
+									<AntTable series={filteredRenderedSeriesData} />
+								</div>
+							</Panel>
+						</Collapse>
 					</div>
 				</div>
 			</div>
