@@ -21,6 +21,9 @@ export default function AntSelect({ selectOptions, onChange }: AntSelectProps) {
 				showArrow={true}
 				allowClear={false}
 			>
+				<Option key='all' value='all'>
+					Select All
+				</Option>
 				{selectOptions.map((option, index) => (
 					// eslint-disable-next-line react/no-array-index-key
 					<Option key={index} value={option}>

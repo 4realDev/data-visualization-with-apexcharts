@@ -41,11 +41,12 @@ const DataFiltersContainer = () => {
 			rangePickerSelection[0],
 			rangePickerSelection[1],
 		)
-		dispatch(setSelectFilterSelection(seriesFilterSelection))
+		const selection = seriesFilterSelection.includes('all') ? selectFilterInitialSelection : seriesFilterSelection
+		dispatch(setSelectFilterSelection(selection))
 		dispatch(
 			filterNormalizedSeries({
 				rangeSelection: rangeFilterSelectionMonthNumbers,
-				seriesSelection: seriesFilterSelection,
+				seriesSelection: selection,
 			}),
 		)
 	}
