@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 
-import { ApexChartSerie, NormalizedApexChartSerie } from 'shared/types'
+import { ApexChartSerie, NormalizedApexChartSerie, FilterData } from 'shared/types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppDispatch } from 'redux/store'
 import { server } from 'config/config'
