@@ -86,3 +86,24 @@ a {
 * {
 	box-sizing: border-box;
 }
+
+/* .apexcharts-tooltip-text {
+	white-space: pre-wrap !important;
+} */
+
+.apexcharts-tooltip-text-y-label {
+}
+
+.apexcharts-tooltip-text-y-value {
+}
+
+/* This is for custom box */
+.apexcharts-tooltip {
+	border-radius: 12px !important;
+	box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+#apexchartsRadarChart {
+	white-space: pre-wrap !important;
+	text-align: center !important;
+}

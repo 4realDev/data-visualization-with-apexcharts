@@ -9,6 +9,7 @@ import LineAreaChart from './charts/LineAreaChart'
 import HeatMapChart from './charts/HeatMapChart'
 import { renderSeriesDataMonths } from '../helper/normalizerMonths'
 import { COLORS } from '../shared/colors'
+import RadarChartSection from './RadarChartSection'
 
 const { Panel } = Collapse
 
@@ -114,7 +115,7 @@ const DataGraphsContainer = () => {
 							zoom={rangePickerSelection}
 						/>
 					</div>
-					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
+					<div className='lg:col-span-6 md:col-span-6 sm:col-span-6 col-span-6  row-span-1'>
 						<LineAreaChart
 							title='Area Chart with Random Data over the Year'
 							subtitle='ApexCharts Area Chart'
@@ -123,10 +124,13 @@ const DataGraphsContainer = () => {
 							zoom={rangePickerSelection}
 						/>
 					</div>
+
+					<RadarChartSection />
+
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
 						<HeatMapChart title='W.I.P.' subtitle='ApexCharts HeatMap Chart' />
 					</div>
-
+					{/* 
 					<div className='col-span-6 row-span-1 my-4'>
 						<Collapse bordered={false} defaultActiveKey={['1']}>
 							<Panel header='DATA TABLE' key='1'>
@@ -135,7 +139,7 @@ const DataGraphsContainer = () => {
 								</div>
 							</Panel>
 						</Collapse>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>

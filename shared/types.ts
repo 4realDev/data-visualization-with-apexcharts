@@ -6,6 +6,15 @@ export type ApexChartSerie = {
 	}[]
 }
 
+export type ApexChartSerieWithDescription = {
+	name: string
+	data: {
+		x: string
+		y: number
+		description: string
+	}[]
+}
+
 export type NormalizedApexChartSerie = {
 	name: string
 	data: {
