@@ -85,6 +85,8 @@ const RadarChart = ({ title, subtitle, mySeries, color, tooltipDescription }: Ra
 			// 	console.log(seriesIndex)
 			// 	return `${'<div class="arrow_box">' + '<span>'}${dataPointIndex}</span>` + `</div>`
 			// },
+
+			// "as any" fix is needed, because ApexCharts fogot to add the marker prop in formatter
 			y: {
 				title: {
 					formatter: (seriesName: string, marker: ApexChartsMarkerData) => {
@@ -97,7 +99,7 @@ const RadarChart = ({ title, subtitle, mySeries, color, tooltipDescription }: Ra
 					if (val === 0) return ''
 					return 'Skill: ' + convertNumberRatingIntoString(val)
 				},
-			},
+			} as any,
 		},
 
 		xaxis: {

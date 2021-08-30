@@ -46,7 +46,7 @@ export const chartSlice = createSlice({
 			state.series = action.payload
 		},
 
-		setNormalizedSeries: (state, action: PayloadAction<NormalizedApexChartSerie[]>) => {
+		setNormalizedSeries: (state, action: PayloadAction<ApexChartSerie[]>) => {
 			state.normalizedSeries = normalizeSeriesDataMonths(action.payload)
 			state.filteredNormalizedSeries = state.normalizedSeries
 		},
