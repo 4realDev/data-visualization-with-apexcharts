@@ -45,16 +45,16 @@ const LineAreaChart = ({ title, subtitle, series, seriesColor, zoom }: LineAreaC
 		fill: {
 			colors: seriesColor,
 			opacity: 1,
-			type: 'gradient',
-			gradient: {
-				shade: 'dark',
-				type: 'vertical',
-				shadeIntensity: 0.5,
-				gradientToColors: undefined,
-				inverseColors: true,
-				opacityFrom: 1,
-				opacityTo: 0.5,
-			},
+			// type: 'gradient',
+			// gradient: {
+			// 	shade: 'dark',
+			// 	type: 'vertical',
+			// 	shadeIntensity: 0.5,
+			// 	gradientToColors: undefined,
+			// 	inverseColors: true,
+			// 	opacityFrom: 1,
+			// 	opacityTo: 0.5,
+			// },
 		},
 		markers: {
 			size: 0,

@@ -21,9 +21,9 @@ const RadarChartSection = () => {
 	const skillsetVRARGameSeriesDescription = skillsetVRARGameSeries[0].data.map(dataSet => dataSet.description)
 
 	return (
-		<div className='col-span-6 row-span-1 my-4'>
+		<div className='col-span-6 row-span-1 mb-4'>
 			<Collapse bordered={false} defaultActiveKey={['1']}>
-				<Panel header='TOTAL AMOUNT OF DATA' key='1'>
+				<Panel header='RadarChart with Random Data' key='1'>
 					<div
 						className='grid grid-cols-6'
 						style={{

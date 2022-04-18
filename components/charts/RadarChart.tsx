@@ -15,11 +15,13 @@ type RadarChartProps = {
 	tooltipDescription: string | string[]
 }
 
+/*
 type ApexChartsMarkerData = {
 	seriesIndex: number
 	dataPointIndex: number
 	w?: number
 }
+*/
 
 // Limited to min.3 categories
 // Not possible to style labels with padding and so on (<text> elements with x and y-coordinates)
@@ -77,6 +79,7 @@ const RadarChart = ({ title, subtitle, mySeries, color, tooltipDescription }: Ra
 				size: 20,
 			},
 		},
+		/*
 		tooltip: {
 			shared: false,
 			intersect: true,
@@ -101,6 +104,7 @@ const RadarChart = ({ title, subtitle, mySeries, color, tooltipDescription }: Ra
 				},
 			} as any,
 		},
+		*/
 
 		xaxis: {
 			min: 0,

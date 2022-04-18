@@ -59,9 +59,19 @@ const DataGraphsContainer = () => {
 		<div className='min-h-screen flex' style={{ backgroundColor: COLORS.mainLayoutBackground }}>
 			<div className='flex-1 mx-auto text-gray-300'>
 				<div className='grid grid-cols-6 gap-y-0 gap-x-4 grid-flow-row'>
+					<div className='col-span-6 row-span-1 mt-4'>
+						<Collapse bordered={false} defaultActiveKey={['1']}>
+							<Panel header='Data table' key='1'>
+								<div className='lg:col-span-6 md:col-span-6 sm:col-span-6 col-span-6  row-span-1 p-10'>
+									<AntTable series={filteredRenderedSeriesData} />
+								</div>
+							</Panel>
+						</Collapse>
+					</div>
+
 					<div className='col-span-6 row-span-1 my-4'>
 						<Collapse bordered={false} defaultActiveKey={['1']}>
-							<Panel header='TOTAL AMOUNT OF DATA' key='1'>
+							<Panel header='Circle Chart with filterable Data over the Year' key='1'>
 								<div
 									className='grid grid-cols-3'
 									style={{
@@ -99,25 +109,27 @@ const DataGraphsContainer = () => {
 
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<LineChart
-							title='Line Chart with Random Data over the Year'
+							title='Line Chart with filterable Data over the Year'
 							subtitle='ApexCharts Line Chart'
 							series={filteredRenderedSeriesData}
 							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
 							zoom={rangePickerSelection}
 						/>
 					</div>
+
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6 row-span-1'>
 						<BarChart
-							title='Bar Chart with Random Data over the Year'
+							title='Bar Chart with filterable Data over the Year'
 							subtitle='ApexCharts Bar Chart'
 							series={filteredRenderedSeriesData}
 							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
 							zoom={rangePickerSelection}
 						/>
 					</div>
+
 					<div className='lg:col-span-6 md:col-span-6 sm:col-span-6 col-span-6  row-span-1'>
 						<LineAreaChart
-							title='Area Chart with Random Data over the Year'
+							title='Area Chart with filterable Data over the Year'
 							subtitle='ApexCharts Area Chart'
 							series={filteredRenderedSeriesData}
 							seriesColor={getSeriesColor(filteredRenderedSeriesData)}
@@ -128,18 +140,8 @@ const DataGraphsContainer = () => {
 					<RadarChartSection />
 
 					<div className='lg:col-span-3 md:col-span-3 sm:col-span-6 col-span-6  row-span-1'>
-						<HeatMapChart title='W.I.P.' subtitle='ApexCharts HeatMap Chart' />
+						<HeatMapChart title='HeatMapChart with Random Data Metrics' subtitle='ApexCharts HeatMap Chart' />
 					</div>
-					{/* 
-					<div className='col-span-6 row-span-1 my-4'>
-						<Collapse bordered={false} defaultActiveKey={['1']}>
-							<Panel header='DATA TABLE' key='1'>
-								<div className='lg:col-span-6 md:col-span-6 sm:col-span-6 col-span-6  row-span-1 p-10'>
-									<AntTable series={filteredRenderedSeriesData} />
-								</div>
-							</Panel>
-						</Collapse>
-					</div> */}
 				</div>
 			</div>
 		</div>
