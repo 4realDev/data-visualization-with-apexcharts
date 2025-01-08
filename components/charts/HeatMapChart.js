@@ -1,13 +1,14 @@
 // https://ahmedfaaid.com/blog/importing-a-browser-only-package-into-nextjs
-import dynamic from 'next/dynamic'
-const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
-import { useState } from 'react'
-import { COLORS } from '../../helper/colors'
+import dynamic from 'next/dynamic';
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+import React, { useState } from 'react';
+import { COLORS } from '../../helper/colors';
+import PropTypes from 'prop-types';
 
-const HeatMapChart = () => {
+const HeatMapChart = ({ title, subtitle }) => {
 	const [options, setOptions] = useState({
-		title: { text: 'Random Data HeatMap' },
-		subtitle: { text: 'Single Color' },
+		title: { text: title },
+		subtitle: { text: subtitle },
 		plotOptions: {
 			heatmap: {
 				// useFillColorAsStroke: true,
@@ -71,7 +72,7 @@ const HeatMapChart = () => {
 		// fill: {
 		// 	opacity: 0.5,
 		// },
-	})
+	});
 
 	const [series, setSeries] = useState([
 		{
@@ -98,7 +99,7 @@ const HeatMapChart = () => {
 			name: 'Metric5',
 			data: [45, 54, 87, 23, 4, 2, 33, 45],
 		},
-	])
+	]);
 
 	return (
 		// Fake-DOM Element - not rendered inside the DOM
@@ -111,7 +112,12 @@ const HeatMapChart = () => {
 				width='100%' // will be defined through flex
 			/>
 		</>
-	)
-}
+	);
+};
 
-export default HeatMapChart
+HeatMapChart.propTypes = {
+	title: PropTypes.string,
+	subtitle: PropTypes.string,
+};
+
+export default HeatMapChart;

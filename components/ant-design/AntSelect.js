@@ -1,8 +1,9 @@
-import { Select } from 'antd'
-const { Option } = Select
-import React, { useState, useEffect } from 'react'
+import { Select } from 'antd';
+const { Option } = Select;
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function AntSelect({ selectOptions, onChange }) {
+const AntSelect = ({ selectOptions, onChange }) => {
 	return (
 		<>
 			<Select
@@ -14,14 +15,22 @@ export default function AntSelect({ selectOptions, onChange }) {
 				defaultValue={selectOptions}
 				//value={selectOptions}
 				showArrow='true'
-				allowClear='false'
-			>
+				allowClear='false'>
 				{selectOptions.map((option, index) => (
-					<Option key={index} value={option}>
+					<Option
+						key={index}
+						value={option}>
 						{option}
 					</Option>
 				))}
 			</Select>
 		</>
-	)
-}
+	);
+};
+
+AntSelect.propTypes = {
+	selectOptions: PropTypes.any,
+	onChange: PropTypes.any,
+};
+
+export default AntSelect;
