@@ -1,6 +1,13 @@
 ## Preview URL
 https://brazhnik.de/data-visualization/
 
+## Foreword
+This is a showcase of the following technologies:
+- NextJS (Framework)
+- ApexCharts (Charts and Data Visualization)
+- Tailwind (Styling)
+- Redux (State Management)
+
 ## Getting Started
 
 First, run the development server:
